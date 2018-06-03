@@ -1,0 +1,27 @@
+ENCODED DATA: 
+611 is encoded as 4463
+340 is encoded as 4254
+-2628 is encoded as 2B3C
+-255 is encoded as 3E01
+7550 is encoded as 7A7E
+USER ADDED: 1000 is encoded as 4768
+USER ADDED: 01 is encoded as 4001
+USER ADDED: 1 is encoded as 4001
+USER ADDED: 0 is encoded as 4000
+USER ADDED: 80 is encoded as 4050
+USER ADDED: 989 is encoded as 475D
+
+
+
+DECODED DATA: 
+0A0A is decoded as -6902
+0029 is decoded as -8151
+3F0F is decoded as -113
+4400 is decoded as 512
+5E7F is decoded as 3967
+USER ADDED: 7f8f is decoded as 8079
+USER ADDED: a9fd is decoded as 13565
+USER ADDED: a9fd is decoded as 13565
+USER ADDED: 4000 is decoded as 0
+USER ADDED: D is decoded as -8179
+USER ADDED: F is decoded as -8177

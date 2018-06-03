@@ -1,0 +1,92 @@
+[
+    {
+        "model": "art_logic_app.UserAction",
+        "pk": 1,
+        "fields":  {
+        "operation": "encoding",
+        "input": "611",
+        "result": ""
+       }
+    },
+    {
+        "model": "art_logic_app.UserAction",
+        "pk": 2,
+        "fields": {
+            "operation": "encoding",
+            "input": "340",
+            "result": ""
+        }
+    },
+    {
+        "model": "art_logic_app.UserAction",
+        "pk": 3,
+        "fields": {
+            "operation": "encoding",
+            "input": "-2628",
+            "result": ""
+        }
+    },
+    {
+        "model": "art_logic_app.UserAction",
+        "pk": 4,
+        "fields": {
+            "operation": "encoding",
+            "input": "-255",
+            "result": ""
+        }
+    },
+    {
+        "model": "art_logic_app.UserAction",
+        "pk": 5,
+        "fields": {
+            "operation": "encoding",
+            "input": "7550",
+            "result": ""
+        }
+    },
+    {
+        "model": "art_logic_app.UserAction",
+        "pk": 6,
+        "fields": {
+            "operation": "decoding",
+            "input": "0A0A",
+            "result": ""
+        }
+    },
+    {
+        "model": "art_logic_app.UserAction",
+        "pk": 7,
+        "fields": {
+            "operation": "decoding",
+            "input": "0029",
+            "result": ""
+        }
+    },
+    {
+        "model": "art_logic_app.UserAction",
+        "pk": 8,
+        "fields": {
+            "operation": "decoding",
+            "input": "3F0F",
+            "result": ""
+        }
+    },
+    {
+        "model": "art_logic_app.UserAction",
+        "pk": 9,
+        "fields": {
+            "operation": "decoding",
+            "input": "4400",
+            "result": ""
+        }
+    },
+    {
+        "model": "art_logic_app.UserAction",
+        "pk": 10,
+        "fields": {
+            "operation": "decoding",
+            "input": "5E7F",
+            "result": ""
+        }
+    }
+]
