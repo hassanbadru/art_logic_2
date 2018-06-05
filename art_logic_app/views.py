@@ -11,9 +11,13 @@ from django.conf import settings
 from rest_framework.response import Response
 from rest_framework import generics
 
+import json
+# from rest_framework import serializers
+from django.core.serializers import serialize
+
 from art_logic_app.models import UserAction
 from art_logic_app.serializers import UserActionSerializer
-from art_logic_app.myfunctions import encoder, decoder
+from art_logic_app.myfunctions import encoder, decoder, readInstruction
 
 
 # Create your views here.
@@ -36,6 +40,29 @@ class ArtLogicApp(TemplateView):
         #     file_compute = self.request.FILES['file_compute'].readlines()
         #     # print(file_compute)
         #     return redirect('art_logic')
+
+        instruction_string = self.request.GET.get('instruction_string')
+        if instruction_string:
+
+
+            instruction_stream = readInstruction(instruction_string)
+            instruction_json = {}
+
+            count = 0
+            for instruction in instruction_stream:
+                instruction_json[str(count)] =  instruction
+                count += 1
+
+            # print(instruction_json)
+
+            # instruction_stream = serialize("json", instruction_json)
+            # instruction_stream = serializers.serialize("json", instruction_stream)
+            instruction_stream = json.dumps(instruction_json)
+            print(instruction_json)
+
+            context['instruction_stream'] = instruction_json
+            # print(instruction_stream)
+
 
         to_compute = self.request.GET.get('to_compute')
 

@@ -1,4 +1,5 @@
 import math
+import re
 
 def encoder(input_num):
   #user input
@@ -190,3 +191,123 @@ def decoder(input_num):
     output = "Please enter a valid hexadecimal value"
     # print(output)
     return output
+
+
+
+# GET INSTRUCTIONS
+def get_instructions(m_string):
+
+  major_dict = {}
+
+  #Find Clear
+  clear_f0 = re.compile(r'F0')
+  all_clear = clear_f0.finditer(m_string)
+
+  for i in all_clear:
+    key = i.start()
+    major_dict[key] = 'CLR'
+
+
+  #Find Pen Positions
+  pen_80 = re.compile(r'80')
+  all_pens = pen_80.finditer(m_string)
+
+  for i in all_pens:
+    key = i.start()
+
+    major_dict[key] = 'PEN'
+
+
+  #Find Color Changes
+  color_a0 = re.compile(r'A0')
+  all_colors = color_a0.finditer(m_string)
+
+  for i in all_colors:
+    key = i.start()
+    major_dict[key] = 'CO'
+
+
+  #Find All Moves
+  move_c0 = re.compile(r'C0')
+  all_moves = move_c0.finditer(m_string)
+
+  for i in all_moves:
+    key = i.start()
+    major_dict[key] = 'MV'
+
+  all_instructions = sorted(major_dict.items())
+
+  return all_instructions
+
+
+# TRANSLATE INSTRUCTIONS
+def readInstruction(s1):
+
+  my_instructions = get_instructions(s1)
+  num_instructions = len(my_instructions)
+  action_log = []
+
+  for n in range(num_instructions):
+    location = my_instructions[n][0]
+    action = my_instructions[n][1]
+
+    #Location of Next Instruction
+    if n < num_instructions-1:
+      next_location = my_instructions[n+1][0]
+
+
+
+    if action == 'CLR':
+      action_log.append('CLR')
+      # print('CLR')
+
+    if action == 'CO':
+      param_location = location + 2
+      param = s1[param_location:next_location]
+
+      color_val = [decoder(param[i:i+4]) for i in range(0, len(param), 4)]
+
+      action_log.append(['CO', color_val])
+      # print('CO: ', color_val)
+
+    if action == 'MV':
+      param_location = location + 2
+      param = s1[param_location:next_location]
+
+      move_val = [decoder(param[i:i+4]) for i in range(0, len(param), 4)]
+
+      x = move_val[0::2]
+      y = move_val[1::2]
+
+      x_y = [i for i in zip(x, y)]
+
+      action_log.append(['MV', x_y])
+      # print('MV (x, y): ', x_y)
+
+      # print(sum(x), sum(y))
+
+    if action == 'PEN':
+      param_location = location + 2
+      param = s1[param_location:param_location+4]
+
+      if decoder(param) == 0:
+        pen_position = 'PEN UP'
+      else:
+        pen_position = 'PEN DOWN'
+
+      action_log.append(pen_position)
+      # print(pen_position)
+
+  # print(action_log)
+  return action_log
+
+
+# # s2 = 'F0A04000417F4000417FC040004000804001C05F205F20804000'
+#
+# s2 = 'F0A040004000417F417FC04000400090400047684F5057384000804001C05F204000400001400140400040007E405B2C4000804000'
+#
+# # s2 = 'F0A0417F40004000417FC067086708804001C0670840004000187818784000804000'
+#
+# # s2 = 'F0A0417F41004000417FC067086708804001C067082C3C18782C3C804000'
+#
+# readInstruction(s2)

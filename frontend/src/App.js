@@ -146,6 +146,77 @@ const ResultDisplay = (props) => {
   )
 }
 
+
+
+const UserInput2 = (props) => {
+
+  return (
+
+    <div className="form" style={{height: 'auto', width: '100%'}}>
+      <form action="">
+
+
+        <input
+          type="text"
+          placeholder='Instruction'
+          name="instruction_string"
+
+        />
+
+        <button type="submit"> Compute</button>
+
+      </form>
+
+      {/* <a href={window.MEDIA_URL + '/ConvertedData.txt'}>
+        <i className={'message'} className="fas fa-download" > {'download ConvertedData.txt'} </i>
+      </a> */}
+
+    </div>
+  )
+}
+
+const ResultDisplay2 = (props) => {
+
+  let instruction_stream = window.instruction_stream
+  // instruction_stream = JSON.parse(instruction_stream)
+  // instruction_stream = instruction_stream
+
+  return (
+    <div className="col-md-12" style={{backgroundColor: '#eee', paddingTop: 10}}>
+
+      <h5 style={{color: '#000'}}>Result #2</h5>
+      <hr />
+
+      <div className="row">
+
+        <div className="col-md-6" style={{height: 400}}>
+          <p style={{color: '#000'}}>STEPS/TEXT</p>
+          <h4>
+            {instruction_stream}
+          </h4>
+
+          {/* <ul>
+            {
+              instruction_stream.map((instruction, i) => {
+            <li key={i} style={{color: '#000'}}>
+            {instruction}
+            </li>
+              })
+            }
+          </ul> */}
+        </div>
+
+        <div className="col-md-6" style={{height: 400, backgroundColor: '#fff'}}>
+          <p style={{color: '#000'}}>GRAPH</p>
+        </div>
+
+      </div>
+
+    </div>
+  )
+}
+
+
 const Part1 = (props) => {
   return (
     <div className={'row'}>
@@ -174,34 +245,7 @@ const Part2 = (props) => {
       <h4>Entire desired instruction</h4>
       <br />
       <UserInput2 />
-    </div>
-  )
-}
-
-
-const UserInput2 = (props) => {
-
-  return (
-
-    <div className="form">
-      <form action="">
-
-
-        <input
-          type="text"
-          placeholder='Instruction'
-          name="to_compute"
-
-        />
-
-        <button type="submit"> Compute</button>
-
-      </form>
-
-      {/* <a href={window.MEDIA_URL + '/ConvertedData.txt'}>
-        <i className={'message'} className="fas fa-download" > {'download ConvertedData.txt'} </i>
-      </a> */}
-
+      <ResultDisplay2 />
     </div>
   )
 }
