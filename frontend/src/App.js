@@ -147,95 +147,6 @@ const ResultDisplay = (props) => {
 }
 
 
-
-const UserInput2 = (props) => {
-
-  return (
-
-    <div className="form" style={{height: 'auto', width: '100%'}}>
-      <form action="">
-
-
-        <input
-          type="text"
-          placeholder='Instruction'
-          name="instruction_string"
-
-        />
-
-        <button type="submit"> Compute</button>
-
-      </form>
-
-      {/* <a href={window.MEDIA_URL + '/ConvertedData.txt'}>
-        <i className={'message'} className="fas fa-download" > {'download ConvertedData.txt'} </i>
-      </a> */}
-
-    </div>
-  )
-}
-
-const ResultDisplay2 = (props) => {
-
-  let instruction_stream = window.instruction_stream
-  let all_instructions = []
-
-  // console.log(instruction_stream)
-  if (instruction_stream){
-
-    let l = Object.keys(instruction_stream).length
-
-    for (var i =0; i < l; i++){
-      all_instructions.push(instruction_stream[i])
-    }
-
-    console.log(all_instructions)
-
-  }
-
-
-
-  // try {
-  //       console.log(JSON.parse(instruction_stream));
-  //   } catch (e) {
-  //       console.log("Parse doesn't work", e)
-  //   }
-
-  return (
-    <div className="col-md-12" style={{backgroundColor: '#eee', paddingTop: 10}}>
-
-      <h5 style={{color: '#000'}}>PART #2 RESULTS</h5>
-      <hr />
-
-      <div className="row">
-
-        <div className="col-md-6" style={{height: 400}}>
-          <p style={{color: '#000'}}>DECODED POSITIONS</p>
-          <ul>
-            { (instruction_stream) ?
-              all_instructions.map((instruction, i) => {
-                let key = Object.keys(instruction)[0]
-                return (
-                  <li key={i}>
-                    <h5 style={{color: '#000'}}>{(typeof instruction === 'object') ? key + ": " + instruction[key].toString() : instruction}</h5>
-                  </li>
-                )
-              }) : null
-            }
-          </ul>
-        </div>
-
-        <div className="col-md-6" style={{height: 400, backgroundColor: '#fff'}}>
-          <p style={{color: '#000'}}>GRAPH</p>
-        </div>
-
-      </div>
-
-    </div>
-  )
-}
-
-
 const Part1 = (props) => {
   return (
     <div className={'row'}>
@@ -258,16 +169,148 @@ const Part1 = (props) => {
   )
 }
 
-const Part2 = (props) => {
+// style={{height: 'auto', width: '100%'}}
+
+const UserInput2 = (props) => {
+
   return (
-    <div style={{backgroundColor: '#fff', paddingTop: 30}}>
-      <h4>Entire desired instruction</h4>
-      <br />
-      <UserInput2 />
-      <ResultDisplay2 />
+
+    <div className="form">
+      <form action="">
+
+        <input
+          type="text"
+          placeholder='Instruction'
+          name="instruction_string"
+        />
+
+        <button type="submit">Compute</button>
+
+      </form>
+
     </div>
   )
 }
+
+
+const ResultDisplay2 = (props) => {
+
+  let instruction_stream = props.instruction_stream
+
+  let all_instructions = []
+
+  // console.log(instruction_stream)
+  if (instruction_stream){
+
+    let l = Object.keys(instruction_stream).length
+
+    for (var i =0; i < l; i++){
+      all_instructions.push(instruction_stream[i])
+    }
+
+    console.log(all_instructions)
+
+  }
+
+
+// {backgroundColor: '#eee', paddingTop: 10, height: 'auto', width: '100%'}
+  // try {
+  //       console.log(JSON.parse(instruction_stream));
+  //   } catch (e) {
+  //       console.log("Parse doesn't work", e)
+  //   }
+
+  return (
+    <div>
+
+
+
+      <h5 style={{color: '#000'}}>PART #2 RESULTS</h5>
+      <hr />
+
+      <div className="row">
+
+        <div className="col-md-6">
+          <p style={{color: '#000'}}>DECODED POSITIONS</p>
+          <ul>
+            { (instruction_stream) ?
+              all_instructions.map((instruction, i) => {
+                let key = Object.keys(instruction)[0]
+                return (
+                  <li key={i}>
+                    <h5 style={{color: '#000'}}>{(typeof instruction === 'object') ? key + ": " + instruction[key].toString() : instruction}</h5>
+                  </li>
+                )
+              }) : null
+            }
+          </ul>
+        </div>
+
+        <div className="col-md-6" style={{backgroundColor: '#fff'}}>
+          <p style={{color: '#000'}}>GRAPH</p>
+        </div>
+
+      </div>
+
+    </div>
+  )
+}
+
+
+
+
+// const Part2 = (props) => {
+//
+// }
+
+class Part2 extends Component {
+
+
+  render(){
+
+    let instruction_stream = window.instruction_stream
+    let showresult;
+
+    if (typeof instruction_stream !== 'string'){
+      // console.log(typeof instruction_stream !== 'string')
+      showresult = true
+    } else{
+      showresult = false
+    }
+
+    return (
+      <div style={divStyle}>
+
+        {
+          (showresult) ? (
+            <div className="form">
+              <a href="/">Back</a>
+              <ResultDisplay2 instruction_stream={instruction_stream} />
+            </div>
+
+          ) : (
+
+            <div>
+              <br/>
+              <h4>Entire desired instruction</h4>
+              <UserInput2 instruction_stream={instruction_stream} />
+              <br />
+            </div>
+          )
+        }
+      </div>
+    )
+  }
+}
+
+const divStyle={
+  overflowY: 'scroll',
+  // border:'1px solid red',
+  width:'100%',
+  height:'auto',
+  position:'relative',
+  backgroundColor: '#eee'
+};
 
 
 
