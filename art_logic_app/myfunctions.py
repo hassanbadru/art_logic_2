@@ -258,7 +258,7 @@ def readInstruction(s1):
 
 
     if action == 'CLR':
-      action_log.append('CLR')
+      action_log.append("CLR")
       # print('CLR')
 
     if action == 'CO':
@@ -267,7 +267,7 @@ def readInstruction(s1):
 
       color_val = [decoder(param[i:i+4]) for i in range(0, len(param), 4)]
 
-      action_log.append(['CO', color_val])
+      action_log.append({"CO": color_val})
       # print('CO: ', color_val)
 
     if action == 'MV':
@@ -279,9 +279,17 @@ def readInstruction(s1):
       x = move_val[0::2]
       y = move_val[1::2]
 
-      x_y = [i for i in zip(x, y)]
+      # x_y = [i for i in zip(x, y)]
 
-      action_log.append(['MV', x_y])
+      # print([{"x": i, "y": j} for i, j in zip(x, y)])?
+
+      # action_log.append({"MV": x_y})
+      # action_log.append([{"x": i, "y": j} for i, j in zip(x, y)])
+
+
+      for i, j in zip(x, y):
+          action_log.append({"MV": [i, j]})
+
       # print('MV (x, y): ', x_y)
 
       # print(sum(x), sum(y))
@@ -291,9 +299,9 @@ def readInstruction(s1):
       param = s1[param_location:param_location+4]
 
       if decoder(param) == 0:
-        pen_position = 'PEN UP'
+        pen_position = "PEN UP"
       else:
-        pen_position = 'PEN DOWN'
+        pen_position = "PEN DOWN"
 
       action_log.append(pen_position)
       # print(pen_position)

@@ -57,7 +57,7 @@ class ArtLogicApp(TemplateView):
 
             # instruction_stream = serialize("json", instruction_json)
             # instruction_stream = serializers.serialize("json", instruction_stream)
-            instruction_stream = json.dumps(instruction_json)
+            instruction_json = json.dumps(instruction_json)
             print(instruction_json)
 
             context['instruction_stream'] = instruction_json

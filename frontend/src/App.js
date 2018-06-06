@@ -178,32 +178,51 @@ const UserInput2 = (props) => {
 const ResultDisplay2 = (props) => {
 
   let instruction_stream = window.instruction_stream
-  // instruction_stream = JSON.parse(instruction_stream)
-  // instruction_stream = instruction_stream
+  let all_instructions = []
+
+  // console.log(instruction_stream)
+  if (instruction_stream){
+
+    let l = Object.keys(instruction_stream).length
+
+    for (var i =0; i < l; i++){
+      all_instructions.push(instruction_stream[i])
+    }
+
+    console.log(all_instructions)
+
+  }
+
+
+
+  // try {
+  //       console.log(JSON.parse(instruction_stream));
+  //   } catch (e) {
+  //       console.log("Parse doesn't work", e)
+  //   }
 
   return (
     <div className="col-md-12" style={{backgroundColor: '#eee', paddingTop: 10}}>
 
-      <h5 style={{color: '#000'}}>Result #2</h5>
+      <h5 style={{color: '#000'}}>PART #2 RESULTS</h5>
       <hr />
 
       <div className="row">
 
         <div className="col-md-6" style={{height: 400}}>
-          <p style={{color: '#000'}}>STEPS/TEXT</p>
-          <h4>
-            {instruction_stream}
-          </h4>
-
-          {/* <ul>
-            {
-              instruction_stream.map((instruction, i) => {
-            <li key={i} style={{color: '#000'}}>
-            {instruction}
-            </li>
-              })
+          <p style={{color: '#000'}}>DECODED POSITIONS</p>
+          <ul>
+            { (instruction_stream) ?
+              all_instructions.map((instruction, i) => {
+                let key = Object.keys(instruction)[0]
+                return (
+                  <li key={i}>
+                    <h5 style={{color: '#000'}}>{(typeof instruction === 'object') ? key + ": " + instruction[key].toString() : instruction}</h5>
+                  </li>
+                )
+              }) : null
             }
-          </ul> */}
+          </ul>
         </div>
 
         <div className="col-md-6" style={{height: 400, backgroundColor: '#fff'}}>

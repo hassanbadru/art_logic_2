@@ -52,9 +52,15 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
 
-    <script>
+    <script type='text/javascript'>
         window.result = "{{result}}"
-        window.instruction_stream = "{{instruction_stream|safe}}"
+        window.instruction_stream = {{instruction_stream|safe}}
+ //
+ //        window.instruction_stream = [
+ // 43         {% for k, v in instruction_stream.iteritems %}
+ // 44             ["{{ k }}","{{ v }}"] {% if not forloop.last %},{% endif %}
+ // 45         {% endfor %}
+ // 46     ];
         // window.instruction_stream = [{"a":"b"}]
 
         window.MEDIA_URL = "{{ MEDIA_URL }}/media"
