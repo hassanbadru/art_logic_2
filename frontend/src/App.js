@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './css/App.css';
 
+import {XYPlot, XAxis, YAxis, HorizontalGridLines, VerticalGridLines, LineSeries} from 'react-vis';
+
 
 class App extends Component {
   constructor(props){
@@ -282,6 +284,7 @@ const ResultDisplay2 = (props) => {
 
         <div className="col-md-6" style={{backgroundColor: '#fff', height: 300}}>
           <p style={{color: '#000'}}>GRAPH</p>
+          <PlotGraph />
         </div>
 
       </div>
@@ -308,6 +311,33 @@ class Part2 extends Component {
 
 
   }
+}
+
+const PlotGraph = (props) => {
+  return (
+    <XYPlot
+      width={250}
+      height={250}
+      getX={d => d[0]}
+      getY={d => d[1]}>
+
+      <VerticalGridLines />
+      <HorizontalGridLines />
+
+      <LineSeries
+        color="red"
+        data={[
+          [1, 0],
+          [2, 1],
+          [3, 2]
+        ]}
+        style={{strokeLinejoin: "round"}}
+      />
+
+      <XAxis />
+      <YAxis />
+    </XYPlot>
+  )
 }
 
 // const divStyle={
