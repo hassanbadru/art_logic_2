@@ -191,6 +191,7 @@ const ResultDisplay2 = (props) => {
 
   let instruction_stream = props.instruction_stream
   let all_instructions = []
+  let color
 
   // console.log(instruction_stream)
   if (instruction_stream){
@@ -208,7 +209,7 @@ const ResultDisplay2 = (props) => {
       // SELECT COLOR
       if (key === 'CO'){
         let color_array = instruction_stream[i][key]
-        let color = "rgba(" + color_array[0] + ", " + color_array[1] + ", " + color_array[2] + ", " + color_array[3] + ")"
+        color = "rgba(" + color_array[0] + ", " + color_array[1] + ", " + color_array[2] + ", " + color_array[3] + ")"
         console.log(color)
       }
 
@@ -284,7 +285,7 @@ const ResultDisplay2 = (props) => {
 
         <div className="col-md-6" style={{backgroundColor: '#fff', height: 300}}>
           <p style={{color: '#000'}}>GRAPH</p>
-          <PlotGraph />
+          <PlotGraph color={(color) ? color : "black"} />
         </div>
 
       </div>
@@ -325,7 +326,7 @@ const PlotGraph = (props) => {
       <HorizontalGridLines />
 
       <LineSeries
-        color="red"
+        color={props.color}
         data={[
           [1, 0],
           [2, 1],
