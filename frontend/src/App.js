@@ -113,7 +113,7 @@ const ResultDisplay = (props) => {
   return (
     <div className={"result_view"}>
       <h4 style={{color: '#000'}}>
-        {(props.currentOperation == 'encoding') ? 'ENCODING' : 'DECODING'}
+        {(props.currentOperation === 'encoding') ? 'ENCODING' : 'DECODING'}
       </h4>
       <p style={{color: '#000'}}> {(props.currentOperation === 'encoding') ? '(dec to hex)' : '(hex to dec)'}</p>
       <hr style={{width: '100%'}}></hr>
@@ -198,19 +198,19 @@ const ResultDisplay2 = (props) => {
 
     let l = Object.keys(instruction_stream).length
 
-    let x=0, y=0
+    let x=0, y=0, xx=0, yy=0
+    let pen_down = false;
 
     for (var i =0; i < l; i++){
       let key = Object.keys(instruction_stream[i])[0]
-      let pen_down = false;
 
-      // console.log(key)
+
 
       // SELECT COLOR
       if (key === 'CO'){
         let color_array = instruction_stream[i][key]
         color = "rgba(" + color_array[0] + ", " + color_array[1] + ", " + color_array[2] + ", " + color_array[3] + ")"
-        console.log(color)
+        // console.log(color)
       }
 
 
@@ -227,20 +227,82 @@ const ResultDisplay2 = (props) => {
 
       // DRAW LOGIC
       if (key === 'MV'){
-        x += instruction_stream[i][key][0]
-        y += instruction_stream[i][key][1]
-        // console.log(x, y)
+        if (pen_down){
+          //move (x, y)
+          x += instruction_stream[i][key][0]
+          y += instruction_stream[i][key][1]
 
-        // WHEN EXCEEDING BOUNDARY
-        if (x > 8191 && x < -8191){
-          pen_down = false
+
+          // WHEN EXCEEDING BOUNDARY
+
+          //pen up - out of boundary
+
+
+          // leave pen at border if out of bounds
+          if (x > 8191){
+
+            pen_down = false //pen down
+            xx = 8191 //set to boundary (x)
+
+            console.log("x > 8191")
+
+          } else if (x < -8192){
+
+            pen_down = false //pen down
+            xx = -8192 //set to boundary (x)
+            console.log("x < -8192")
+
+          } else {
+
+            pen_down = true //pen up
+            xx = x // last drawn x
+
+            console.log("x normal")
+          }
+
+          if (y > 8191){
+
+            pen_down = false //pen down
+            yy = 8191 //set to boundary (y)
+
+            console.log("y > 8191")
+
+          } else if (y < -8192){
+
+            pen_down = false //pen down
+            yy = -8192 //set to boundary (y)
+            console.log("y < -8192")
+
+          } else {
+
+            pen_down = true //pen up
+            yy = y // last drawn y
+            console.log("y normal")
+
+          }
+
+          instruction_stream[i][key] = [xx, yy]
+
+          // if ((x > 8191 || y > 8191) && (x < -8192 || y < -8192)){
+          //
+          //
+          //
+          // } else {
+          //   //pen down - back in boundary
+          //   pen_down = true
+          //   instruction_stream[i][key] = [x, y] //set to existing (x, y)
+          // }
+
         }
+            instruction_stream[i][key] = [xx, yy]
+            console.log(instruction_stream[i][key])
       }
+
 
       all_instructions.push(instruction_stream[i])
     }
 
-    console.log(x, y)
+
 
     // console.log(all_instructions)
 
@@ -263,7 +325,7 @@ const ResultDisplay2 = (props) => {
 
       <div className="row">
 
-        <div className="col-md-6">
+        <div className="col-md-5">
           <p style={{color: '#000'}}>DECODED POSITIONS</p>
 
           <div style={{overflowY: 'auto', height: 300, width: '100%'}}>
@@ -273,7 +335,7 @@ const ResultDisplay2 = (props) => {
                   let key = Object.keys(instruction)[0]
                   return (
                     <li key={i}>
-                      <h5 style={{color: '#000'}}>{(typeof instruction === 'object') ? key + ": " + instruction[key].toString() : instruction}</h5>
+                      <h5 style={{color: '#000'}}>{(typeof instruction === 'object') ? key + ": " + instruction[key] : instruction}</h5>
                     </li>
                   )
                 }) : null
@@ -283,9 +345,9 @@ const ResultDisplay2 = (props) => {
 
         </div>
 
-        <div className="col-md-6" style={{backgroundColor: '#fff', height: 300}}>
+        <div className="col-md-7" style={{backgroundColor: '#fff', height: 300, padding: 5}}>
           <p style={{color: '#000'}}>GRAPH</p>
-          <PlotGraph color={(color) ? color : "black"} />
+          <PlotGraph color={(color) ? color : "black"} all_instructions={all_instructions} />
         </div>
 
       </div>
@@ -315,29 +377,42 @@ class Part2 extends Component {
 }
 
 const PlotGraph = (props) => {
+  let coordinates = [];
+
+  (props.all_instructions) ?
+    props.all_instructions.map((instruction, i) => {
+      if (Object.keys(instruction)[0] === 'MV'){
+        // console.log(instruction['MV'])
+        coordinates.push(instruction['MV'])
+      }
+      // coordinates.push(instruction['MV'])
+
+    }) : null
+
+    console.log(coordinates)
+
+
   return (
+  <div style={{marginHorizontal: 20}}>
     <XYPlot
       width={250}
       height={250}
       getX={d => d[0]}
       getY={d => d[1]}>
 
-      <VerticalGridLines />
+      {/* <VerticalGridLines /> */}
       <HorizontalGridLines />
 
       <LineSeries
         color={props.color}
-        data={[
-          [1, 0],
-          [2, 1],
-          [3, 2]
-        ]}
+        data={(coordinates) ? coordinates : [[0, 1][6, 2][0, 7]]}
         style={{strokeLinejoin: "round"}}
       />
 
       <XAxis />
       <YAxis />
     </XYPlot>
+  </div>
   )
 }
 
