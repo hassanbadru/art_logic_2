@@ -51,6 +51,7 @@ class ArtLogicApp(TemplateView):
             count = 0
             for instruction in instruction_stream:
                 instruction_json[str(count)] =  instruction
+                print(instruction)
                 count += 1
 
             # print(instruction_json)

@@ -195,9 +195,49 @@ const ResultDisplay2 = (props) => {
 
     let l = Object.keys(instruction_stream).length
 
+    let x=0, y=0
+
     for (var i =0; i < l; i++){
+      let key = Object.keys(instruction_stream[i])[0]
+      let pen_down = false;
+
+      // console.log(key)
+
+      // SELECT COLOR
+      if (key === 'CO'){
+        let color_array = instruction_stream[i][key]
+        let color = "rgba(" + color_array[0] + ", " + color_array[1] + ", " + color_array[2] + ", " + color_array[3] + ")"
+        console.log(color)
+      }
+
+
+      // PEN LOGIC
+      if (instruction_stream[i] === 'PEN UP'){
+        pen_down = false
+        // console.log("PEN:", pen_down)
+      }else if (instruction_stream[i] === 'PEN DOWN'){
+        pen_down = true
+        // console.log("PEN UP:", pen_down)
+      }
+
+
+
+      // DRAW LOGIC
+      if (key === 'MV'){
+        x += instruction_stream[i][key][0]
+        y += instruction_stream[i][key][1]
+        // console.log(x, y)
+
+        // WHEN EXCEEDING BOUNDARY
+        if (x > 8191 && x < -8191){
+          pen_down = false
+        }
+      }
+
       all_instructions.push(instruction_stream[i])
     }
+
+    console.log(x, y)
 
     // console.log(all_instructions)
 
@@ -210,7 +250,7 @@ const ResultDisplay2 = (props) => {
 
       <br />
       <br />
-      <a href="/">Back</a>
+      <a href="/"> Back</a>
       <br />
       <br />
 
