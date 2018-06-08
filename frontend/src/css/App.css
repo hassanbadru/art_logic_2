@@ -378,3 +378,70 @@ hr {
   color: #e75926;
   text-decoration: none;
 }
+
+
+.rv-xy-plot {
+  color: #c3c3c3;
+  position: relative;
+}
+
+.rv-xy-plot canvas {
+  pointer-events: none;
+	padding: 10;
+
+}
+
+.rv-xy-plot .rv-xy-canvas {
+  pointer-events: none;
+  position: absolute;
+	margin-left: 10
+}
+
+.rv-xy-plot__inner {
+  display: block;
+}
+
+.rv-xy-plot__axis__line {
+  fill: none;
+  stroke-width: 2px;
+  stroke: #e6e6e9;
+}
+
+.rv-xy-plot__axis__tick__line {
+  stroke: #e6e6e9;
+}
+
+.rv-xy-plot__axis__tick__text {
+  fill: #6b6b76;
+  font-size: 11px;
+}
+
+.rv-xy-plot__axis__title text {
+  fill: #6b6b76;
+  font-size: 11px;
+}
+
+.rv-xy-plot__grid-lines__line {
+  stroke: #e6e6e9;
+}
+
+.rv-xy-plot__circular-grid-lines__line {
+  fill-opacity: 0;
+  stroke: #e6e6e9;
+}
+
+.rv-xy-plot__circular-grid-lines__line {
+  fill-opacity: 0;
+  stroke: #e6e6e9;
+}
+
+.rv-xy-plot__series,
+.rv-xy-plot__series path {
+  pointer-events: all;
+}
+
+.rv-xy-plot__series--line {
+  fill: none;
+  stroke: #000;
+  stroke-width: 2px;
+}

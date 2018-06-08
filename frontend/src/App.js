@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './css/App.css';
 
-import {XYPlot, XAxis, YAxis, HorizontalGridLines, VerticalGridLines, LineSeries} from 'react-vis';
+import {XYPlot, XAxis, YAxis, HorizontalGridLines, VerticalGridLines, LineSeries, LineMarkSeries} from 'react-vis';
 
 
 class App extends Component {
@@ -323,7 +323,7 @@ const ResultDisplay2 = (props) => {
 
       <div className="row">
 
-        <div className="col-md-5">
+        <div className="col-md-6">
           <p style={{color: '#000'}}>DECODED POSITIONS</p>
 
           <div style={{overflowY: 'auto', height: 300, width: '100%'}}>
@@ -343,7 +343,7 @@ const ResultDisplay2 = (props) => {
 
         </div>
 
-        <div className="col-md-7" style={{backgroundColor: '#fff', height: 300, padding: 5}}>
+        <div className="col-md-6" style={{backgroundColor: '#fff', height: 350}}>
           <p style={{color: '#000'}}>GRAPH</p>
           <PlotGraph color={(color) ? color : "black"} all_instructions={all_instructions} />
         </div>
@@ -391,24 +391,28 @@ const PlotGraph = (props) => {
 
 
   return (
-  <div style={{marginHorizontal: 20}}>
+  <div style={{marginHorizontal: 20, backgroundColor: '#fff'}}>
+
+
+
     <XYPlot
-      width={250}
-      height={250}
+      width={400}
+      height={300}
       getX={d => d[0]}
       getY={d => d[1]}>
 
-      {/* <VerticalGridLines /> */}
+      <XAxis/><YAxis/>
+
+      <VerticalGridLines />
       <HorizontalGridLines />
 
-      <LineSeries
+      <LineMarkSeries
         color={props.color}
         data={(coordinates)? coordinates : [[1, 1],[3, 4],[3, 7]]}
-        style={{line:{stroke: 'white'}, strokeWidth: 5}}
+        style={{strokeWidth: 5}}
       />
 
-      <XAxis />
-      <YAxis />
+
     </XYPlot>
   </div>
   )
