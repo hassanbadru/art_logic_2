@@ -2,10 +2,11 @@
 # Encoder/Decoder - Art+Logic Exercise
 
 ## Description
-This is a single page web application that allows users to encode and decode data
+Using the decoding function written for Part 1 submission to decode and describe a set of simple commands to build a vector-based drawing system.
+
 
 ## Set Up / Running App
-- Download & unpack Hassan_Badru_Part1.zip file
+- Download & unpack Hassan_Badru_Part2.zip file
 - (*Recommended*) Install & run a Virtual Environment (e.g. `source Art_Logic_Env/bin/activate `)
 - Assuming you already have *python* and *pip*, install requirements using `​ pip install -r requirements.txt` within command prompt or terminal *(if not, check out [How to install python & pip ](https://pip.pypa.io/en/stable/installing/))*
 - Assuming you already have *Node* or *NPM*, inside the **frontend** folder, install node_modules (dependencies) using `npm install`  *(if not, check out [How to install Node ](https://nodejs.org/en/download/package-manager/))*
@@ -14,27 +15,24 @@ This is a single page web application that allows users to encode and decode dat
 
 *Note: On your browser, go to http://127.0.0.1:8000/api to access REST API*
 
-## Exercise Requirements
-For this task, you need to write a small program including a pair of functions that can
-- [x] Convert an integer into a special text encoding and then
-- [x] Convert the encoded value back into the original integer.
-Assuming that your solution works correctly and cleanly enough to move forward in this process, these
-functions will need to be used in your part 2 submission.
-#### The Encoding Function
-My encoding function accepts a signed integer in the 14-bit range *[-8192..+8191]* and returns a 4 character hexadecimal
-string.
-The encoding process is as follows:
-1. Added 8192 to the raw value, so its range is translated to *[0..16383]*
-2. Packed that value into two bytes such that the most significant bit of each is cleared
-3. Formatted the two bytes as a single 4-character hexadecimal string and returned it.
+## Task
+If the pen is moved while it is down, we draw along the line of motion in the current color. If the pen is moved while it is up, no drawing is done
 
-#### The Decoding Function
-My decoding function accepts two bytes on input, both in the range *[0x00..0x7F]* and recombines
-them to return the corresponding integer between *[-8192..+8191]*
+#### Commands
+The commands supported in this mini-language are:
+- [x] Clear the drawing and reset all parameters
+- [x] Raise/lower the pen
+- [x] Change the current color
+- [x] Move the pen
+
+Commands are represented in the data stream by a single (un-encoded) opcode byte that can be identified by always having its most significant bit set, followed by zero or more bytes containing encoded data values. 
+
+Any unrecognized commands encountered in an input stream should be ignored.
+
 
 ## Folder Structure
 ```
-Hassan_Badru_Part1
+Hassan_Badru_Part2
     ├── README.md
     ├── art_logic
     │   ├── __init__.py
@@ -143,6 +141,10 @@ def decoder(input_num):
     ....
     return output
 ```
+
+
+
+
 - ### Routing
 Django Project:
 ```
