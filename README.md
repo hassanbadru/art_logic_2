@@ -1,5 +1,5 @@
 
-# Encoder/Decoder - Art+Logic Exercise
+# Decode Vector Instruction String - Art+Logic Exercise
 
 ## Description
 Using the decoding function written for Part 1 submission to decode and describe a set of simple commands to build a vector-based drawing system.
@@ -156,7 +156,13 @@ class UserActionSerializer(serializers.ModelSerializer):
 
 ## How the App Works
 ### REACT Single Page
-![alt text](https://docs.google.com/uc?id=1MPyshrH0s3bdYfZQ3i13XqrUvCFqVQyd "screenshot")
+
+## Input Instruction Screen
+![alt text](https://docs.google.com/uc?id=1RM-ZU_RQ4dWYCEm7WO6Arz656FEgvV7k "screenshot1")
+
+## Decoded Instruction Screen & Graph
+![alt text](https://docs.google.com/uc?id=12o58b4MLzxModf9YKqGqbQQUziklyNFS "screenshot2")
+
 ## Features
 * User can select what kind of operation they want to perform
 * After selecting operation, user can input values they want to encode/decode
