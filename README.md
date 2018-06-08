@@ -159,7 +159,7 @@ Django App (art_logic_app):
     > Textual: Shows all commands and effects on new positions in text form
     > Graphical: Shows the points drawn by the commands based on positions
 
-* Error Handling: Users get error messages if the app couldn't understand any value from string
+* Error Handling: Users get error messages if the app reads incorrect parameters or doesn't understand any information from string
 * If no errors, the results of the decoded instruction are displayed and plotted.
 
 
