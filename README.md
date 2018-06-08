@@ -1,5 +1,5 @@
 
-# Decode Vector Instruction String - Art+Logic Exercise
+# Decode Vector Instruction Strings - Art+Logic Exercise
 
 ## Description
 Using the decoding function written for Part 1 submission to decode and describe a set of simple commands to build a vector-based drawing system.
@@ -100,13 +100,16 @@ def decoder(input_num):
 ```
 
 #### Get function:
+Searches the inputted string for all commands present within, using regular expressions.
 ```
 def get_instructions(m_string):
     ....
     return output
 ```
+return a stored dictionary of every command with their respective positions within the string
 
-#### Read function:
+#### Read function: 
+Takes in the result from `get_instruction()` and then used 
 ```
 def readInstruction(s1):
     ....
