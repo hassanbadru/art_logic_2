@@ -106,16 +106,16 @@ def get_instructions(m_string):
     ....
     return output
 ```
-return a stored dictionary of every command with their respective positions within the string
+return a stored dictionary of every command within the string, with their respective starting positions as keys
 
 #### Read function: 
-Takes in the result from `get_instruction()` and then used 
+Takes in the result from `get_instruction()`, creates an action log of all possible parameters and then decodes them
 ```
 def readInstruction(s1):
     ....
     return output
 ```
-
+returns an array of objects that includes all instruction as either strings or keys for accompanying parameters
 #### Boundary Fix function:
 ```
 def def fix_boundary(val):
