@@ -157,10 +157,10 @@ class UserActionSerializer(serializers.ModelSerializer):
 ## How the App Works
 ### REACT Single Page
 
-## Input Instruction Screen
+#### Input Instruction Screen
 ![alt text](https://docs.google.com/uc?id=1RM-ZU_RQ4dWYCEm7WO6Arz656FEgvV7k "screenshot1")
 
-## Decoded Instruction Screen & Graph
+#### Decoded Instruction Screen & Graph
 ![alt text](https://docs.google.com/uc?id=12o58b4MLzxModf9YKqGqbQQUziklyNFS "screenshot2")
 
 ## Features
