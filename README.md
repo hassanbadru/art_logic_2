@@ -161,6 +161,7 @@ Django App (art_logic_app):
 * The app takes in the string and computes result if valid
 * Result are displayed in two forms: 
     > Textual: Shows all commands and effects on new positions in text form
+    
     > Graphical: Shows the points drawn by the commands based on positions
 
 * Error Handling: Users get error messages if the app reads incorrect parameters or doesn't understand any information from string
