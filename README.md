@@ -98,8 +98,7 @@ I set the template use to load from React's production build folder in *settings
 "react-scripts": "1.1.4",
 "react-vis": "^1.9.4" 
 ```
-#### One External Library used
-**react-vis:** for creating X-Y plot on canvas
+**One External Library used (react-vis):** For creating X-Y plot of coordinates on canvas
 
 - ### Utility (MyFunction.py)
 
