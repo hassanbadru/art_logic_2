@@ -153,12 +153,12 @@ Django App (art_logic_app):
 ![alt text](https://docs.google.com/uc?id=12o58b4MLzxModf9YKqGqbQQUziklyNFS "screenshot2")
 
 ## Features
-* User can select what kind of operation they want to perform
-* After selecting operation, user can input values they want to encode/decode
-* The app checks if user inputted a correctly formatted (valid) values i.e.
-    > 14-bit signed integer (when encoding)
+* User can input a un-encoded string that contains the instructions they want to execute with hexadecimal parameters
+* The app takes in the string and computes result if valid
+* Result are displayed in two forms: 
+    > Textual: Shows all commands and effects on new positions in text form
+    > Graphical: Shows the points drawn by the commands based on positions
 
-    > 16-bit hexadecimal decimal value for decoding
 * Error Handling: Users get error messages if invalid values were inputted
 * If no errors, the result of the encoding or decoding operation is outputted & displays.
 * The app reads stored data (for encoding/decoding) in database and then uses the data object attributes to compute results
@@ -235,5 +235,4 @@ Hassan_Badru_Part2
 ```
 
 ## Extensibility
-- An added feature in the future could allow the userto toggle between user text input or file input
-![alt text](https://docs.google.com/uc?id=1KpToCfgzJh__eUMxtZGlPydJgs9XojC8 "screenshot_2")
+- An added feature in the future could be/allow
