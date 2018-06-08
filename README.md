@@ -54,74 +54,7 @@ Here are command formats used
 | Opcode        | CO           |
 | Parameters    | dx0 dy0 [dx1 dy1 .. dxn dyn] |
 | Output        | MV (xo, y0) (x1, y1) [... (xn, yn)]    |
-## Folder Structure
-```
-Hassan_Badru_Part2
-    ├── README.md
-    ├── art_logic
-    │   ├── __init__.py
-    │   ├── settings.py
-    │   ├── urls.py
-    │   ├── wsgi.py
-    ├── art_logic_app
-    │   ├── __init__.py
-    │   ├── admin.py
-    │   ├── apps.py
-    │   ├── fixtures
-    │   │   └── art_logic_app.json
-    │   ├── migrations
-    │   │   ├── 0001_initial.py
-    │   │   ├── 0002_auto_20180515_2039.py
-    │   │   ├── 0003_auto_20180519_2226.py
-    │   │   ├── __init__.py
-    │   │   └── __init__.pyc
-    │   ├── models.py
-    │   ├── myfunctions.py
-    │   ├── serializers.py
-    │   ├── tests.py
-    │   ├── urls.py
-    │   ├── views.py
-    ├── db.sqlite3
-    ├── frontend
-    │   ├── README.md
-    │   ├── build
-    │   │   ├── asset-manifest.json
-    │   │   ├── favicon.ico
-    │   │   ├── index.html
-    │   │   ├── manifest.json
-    │   │   ├── service-worker.js
-    │   │   └── static
-    │   │       ├── css
-    │   │       │   ├── main.a203576f.css
-    │   │       │   └── main.a203576f.css.map
-    │   │       ├── js
-    │   │       │   ├── main.c96fb44e.js
-    │   │       │   └── main.c96fb44e.js.map
-    │   │       └── media
-    │   │           └── intro-bg.fb30f247.jpg
-    │   ├──
-    │   ├── package.json
-    │   ├── public
-    │   │   ├── favicon.ico
-    │   │   ├── index.html
-    │   │   └── manifest.json
-    │   ├── src
-    │   │   ├── App.js
-    │   │   ├── App.test.js
-    │   │   ├── css
-    │   │   │   ├── App.css
-    │   │   │   └── index.css
-    │   │   ├── img
-    │   │   │   └── intro-bg.jpg
-    │   │   ├── index.js
-    │   │   ├── logo.svg
-    │   │   └── registerServiceWorker.js
-    │   └── yarn.lock
-    ├── requirements.txt
-    ├── manage.py
-    └── media
-        └── ConvertedData.txt
-```
+
 ## Technology Stack Used
 * ##### HTML5 / CSS (View Template)
 * ##### REACT JS (Frontend)
@@ -219,16 +152,7 @@ class UserActionSerializer(serializers.ModelSerializer):
         fields = ('operation', 'input', 'result')
 ```
 
-- ### Static Files
-#### CSS:
-* App.css
-* index.css
-#### IMAGE:
-Background Image:
-* intro-bg.jpg
 
-
-The app also writes all **USER ADDED** encoding/decoding conversions to the file: *ConvertedData.txt*
 
 ## How the App Works
 ### REACT Single Page
@@ -245,6 +169,75 @@ The app also writes all **USER ADDED** encoding/decoding conversions to the file
 * The app reads stored data (for encoding/decoding) in database and then uses the data object attributes to compute results
 * Allows user to download convertedData.txt file containing encoding/decoding data of preloaded values
 * The app keeps a record of every valid operation performed by the user and serializes it for the API
+
+## Folder Structure
+```
+Hassan_Badru_Part2
+    ├── README.md
+    ├── art_logic
+    │   ├── __init__.py
+    │   ├── settings.py
+    │   ├── urls.py
+    │   ├── wsgi.py
+    ├── art_logic_app
+    │   ├── __init__.py
+    │   ├── admin.py
+    │   ├── apps.py
+    │   ├── fixtures
+    │   │   └── art_logic_app.json
+    │   ├── migrations
+    │   │   ├── 0001_initial.py
+    │   │   ├── 0002_auto_20180515_2039.py
+    │   │   ├── 0003_auto_20180519_2226.py
+    │   │   ├── __init__.py
+    │   │   └── __init__.pyc
+    │   ├── models.py
+    │   ├── myfunctions.py
+    │   ├── serializers.py
+    │   ├── tests.py
+    │   ├── urls.py
+    │   ├── views.py
+    ├── db.sqlite3
+    ├── frontend
+    │   ├── README.md
+    │   ├── build
+    │   │   ├── asset-manifest.json
+    │   │   ├── favicon.ico
+    │   │   ├── index.html
+    │   │   ├── manifest.json
+    │   │   ├── service-worker.js
+    │   │   └── static
+    │   │       ├── css
+    │   │       │   ├── main.a203576f.css
+    │   │       │   └── main.a203576f.css.map
+    │   │       ├── js
+    │   │       │   ├── main.c96fb44e.js
+    │   │       │   └── main.c96fb44e.js.map
+    │   │       └── media
+    │   │           └── intro-bg.fb30f247.jpg
+    │   ├──
+    │   ├── package.json
+    │   ├── public
+    │   │   ├── favicon.ico
+    │   │   ├── index.html
+    │   │   └── manifest.json
+    │   ├── src
+    │   │   ├── App.js
+    │   │   ├── App.test.js
+    │   │   ├── css
+    │   │   │   ├── App.css
+    │   │   │   └── index.css
+    │   │   ├── img
+    │   │   │   └── intro-bg.jpg
+    │   │   ├── index.js
+    │   │   ├── logo.svg
+    │   │   └── registerServiceWorker.js
+    │   └── yarn.lock
+    ├── requirements.txt
+    ├── manage.py
+    └── media
+        └── ConvertedData.txt
+```
 
 ## Extensibility
 - An added feature in the future could allow the userto toggle between user text input or file input
