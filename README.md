@@ -16,7 +16,7 @@ Using the decoding function written for Part 1 submission to decode and describe
 *Note: On your browser, go to http://127.0.0.1:8000/api to access REST API*
 
 ## Task
-If the pen is moved while it is down, we draw along the line of motion in the current color. If the pen is moved while it is up, no drawing is done
+This system uses a pen-based model where an imaginary pen can be raised or lowered.
 
 The commands supported in this mini-language are:
 - [x] Clear the drawing and reset all parameters
@@ -169,6 +169,8 @@ Django App (art_logic_app):
 ## Features
 * User can input a un-encoded string that contains the instructions they want to execute with hexadecimal parameters
 * The app takes in the string and computes result if valid
+* If the pen is moved while it is down, we draw along the line of motion in the current color. 
+* If the pen is moved while it is up, no drawing is done
 * Result are displayed in two forms: 
     > **Textual:** Shows all commands and effects on new positions in text form
     
