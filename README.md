@@ -159,11 +159,9 @@ Django App (art_logic_app):
     > Textual: Shows all commands and effects on new positions in text form
     > Graphical: Shows the points drawn by the commands based on positions
 
-* Error Handling: Users get error messages if invalid values were inputted
-* If no errors, the result of the encoding or decoding operation is outputted & displays.
-* The app reads stored data (for encoding/decoding) in database and then uses the data object attributes to compute results
-* Allows user to download convertedData.txt file containing encoding/decoding data of preloaded values
-* The app keeps a record of every valid operation performed by the user and serializes it for the API
+* Error Handling: Users get error messages if the app couldn't understand any value from string
+* If no errors, the results of the decoded instruction are displayed and plotted.
+
 
 ## Folder Structure
 ```
