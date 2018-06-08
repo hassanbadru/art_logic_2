@@ -46,7 +46,7 @@ class App extends Component {
 
             }
 
-            </div>
+          </div>
         </div>
       </div>
 
@@ -214,89 +214,6 @@ const ResultDisplay2 = (props) => {
       }
 
 
-      // PEN LOGIC
-      // if (instruction_stream[i] === 'PEN UP'){
-      //   pen_down = false
-      //   // console.log("PEN:", pen_down)
-      // }else if (instruction_stream[i] === 'PEN DOWN'){
-      //   pen_down = true
-      //   // console.log("PEN UP:", pen_down)
-      // }
-
-
-
-      // DRAW LOGIC
-      // if (key === 'MV'){
-      //   if (pen_down){
-      //     //move (x, y)
-      //     x += instruction_stream[i][key][0]
-      //     y += instruction_stream[i][key][1]
-      //
-      //
-      //     // WHEN EXCEEDING BOUNDARY
-      //
-      //     //pen up - out of boundary
-      //
-      //
-      //     // leave pen at border if out of bounds
-      //     if (x > 8191){
-      //
-      //       pen_down = false //pen down
-      //       xx = 8191 //set to boundary (x)
-      //
-      //       console.log("x > 8191")
-      //
-      //     } else if (x < -8192){
-      //
-      //       pen_down = false //pen down
-      //       xx = -8192 //set to boundary (x)
-      //       console.log("x < -8192")
-      //
-      //     } else {
-      //
-      //       pen_down = true //pen up
-      //       xx = x // last drawn x
-      //
-      //       console.log("x normal")
-      //     }
-      //
-      //     if (y > 8191){
-      //
-      //       pen_down = false //pen down
-      //       yy = 8191 //set to boundary (y)
-      //
-      //       console.log("y > 8191")
-      //
-      //     } else if (y < -8192){
-      //
-      //       pen_down = false //pen down
-      //       yy = -8192 //set to boundary (y)
-      //       console.log("y < -8192")
-      //
-      //     } else {
-      //
-      //       pen_down = true //pen up
-      //       yy = y // last drawn y
-      //       console.log("y normal")
-      //
-      //     }
-      //
-      //     instruction_stream[i][key] = [xx, yy]
-      //
-      //
-      //
-      //   } else if (!(x > 8191 && x < -8192) || !(y > 8191 && y < -8192)) {
-      //     // if pen up but still within boundary
-      //     // xx = x
-      //     // yy = y
-      //     // xx = instruction_stream[i][key][0]
-      //     // yy = instruction_stream[i][key][1]
-      //   }
-      //       instruction_stream[i][key] = [xx, yy]
-      //       console.log(instruction_stream[i][key])
-      // }
-
-
       all_instructions.push(instruction_stream[i])
     }
 
@@ -313,18 +230,20 @@ const ResultDisplay2 = (props) => {
 
       <br />
       <br />
-      <a href="/"> Back</a>
+      <a href="/" style={{marginRight: '80%'}}> <i class="fas fa-chevron-left"></i> Back to Input Form</a>
       <br />
       <br />
 
 
-      <h5 style={{color: '#000'}}>PART #2 RESULTS</h5>
+      <h5 style={{color: '#000'}}>RESULTS</h5>
       <hr />
+      <h6 style={{color: '#888'}}><span><strong>Instruction String: </strong> <em>{window.instruction_string}</em></span></h6>
+      <br />
 
       <div className="row">
 
         <div className="col-md-6">
-          <p style={{color: '#000'}}>DECODED POSITIONS</p>
+          <p style={{color: '#000'}}>DECODED INSTRUCTIONS</p>
 
           <div style={{overflowY: 'auto', height: 300, width: '100%'}}>
             <ul>
@@ -391,7 +310,7 @@ const PlotGraph = (props) => {
 
 
   return (
-  <div style={{marginHorizontal: 20, backgroundColor: '#fff'}}>
+  <div style={{marginHorizontal: 20, backgroundColor: '#fff', width: '100%'}}>
 
 
 

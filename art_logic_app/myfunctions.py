@@ -309,6 +309,7 @@ def readInstruction(s1):
   # print(action_log)
   return action_log
 
+#check if value exceeds boundary, returns value if less or border if more
 def fix_boundary(val):
   if val < -8192:
     return -8192

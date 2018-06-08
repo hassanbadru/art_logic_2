@@ -44,21 +44,15 @@ class ArtLogicApp(TemplateView):
         instruction_string = self.request.GET.get('instruction_string')
         if instruction_string:
 
+            context['instruction_string'] = instruction_string
 
+            #get instructions
             instruction_stream = readInstruction(instruction_string)
-            # instruction_json = {}
+
+            # perform instructed operations
             instruction_json = write_instructions(instruction_stream)
 
-            # count = 0
-            # for instruction in instruction_stream:
-            #     instruction_json[str(count)] =  instruction
-            #     print(instruction)
-            #     count += 1
-
-            # print(instruction_json)
-
-            # instruction_stream = serialize("json", instruction_json)
-            # instruction_stream = serializers.serialize("json", instruction_stream)
+            # convert to json
             instruction_json = json.dumps(instruction_json)
             print(instruction_json)
 

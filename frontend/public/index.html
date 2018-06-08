@@ -55,17 +55,9 @@
     <script type='text/javascript'>
         window.result = "{{result}}"
         window.instruction_stream = {{instruction_stream|safe}}
- //
- //        window.instruction_stream = [
- // 43         {% for k, v in instruction_stream.iteritems %}
- // 44             ["{{ k }}","{{ v }}"] {% if not forloop.last %},{% endif %}
- // 45         {% endfor %}
- // 46     ];
-        // window.instruction_stream = [{"a":"b"}]
+        window.instruction_string = "{{instruction_string}}"
 
         window.MEDIA_URL = "{{ MEDIA_URL }}/media"
-        // window.operation_type = "{{operation_type}}"
-        // console.log(window.result)
     </script>
 
   </body>
