@@ -142,6 +142,34 @@ def decoder(input_num):
     return output
 ```
 
+#### Get function:
+```
+def get_instructions(m_string):
+    ....
+    return output
+```
+
+#### Read function:
+```
+def readInstruction(s1):
+    ....
+    return output
+```
+
+#### Boundary Fix function:
+```
+def def fix_boundary(val):
+    ....
+    return output
+```
+
+#### Write function:
+```
+def write_instructions(instruction_stream):
+    ....
+    return output
+```
+
 
 
 
@@ -166,13 +194,7 @@ class UserActionSerializer(serializers.ModelSerializer):
         model = UserAction
         fields = ('operation', 'input', 'result')
 ```
-- ### Fixtures
-Preloaded with data to be encoded/decoded and written into convertedData.txt
-#### File:
-```
-art_logic_app.json
-```
-Preloaded data with output written into convertedData.txt
+
 - ### Static Files
 #### CSS:
 * App.css
@@ -187,21 +209,29 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 ```
 
-| To Encode     | After Encode |
+| Command       | CLR          |
 | ------------- |------------- |
-| 6111          | 4463         |
-| 340           | 4254         |
-| -2628         | 2B3C         |
-| -255          | 3E01         |
-| 7550          | 7A7E         |
+| Opcode        | FO           |
+| Parameters    | (None)       |
+| Output        | CLR;\n       |
 
-| To Decode     | After Decode |
+| Command       | PEN          |
 | ------------- |------------- |
-| 0A0A          |  -6902       |
-| 0029          |  -8151       |
-| 3F0F          |  -113        |
-| 4400          |  512         |
-| 5E7F          |  3967        |
+| Opcode        | 9O           |
+| Parameters    | 0=up,not 0=down |
+| Output        | PEN UP or PEN DOWN |
+
+| Command       | CO |
+| ------------- |------------- |
+| Opcode        | AO           |
+| Parameters    |  R G B A        |
+| Output        | CO {r} {g} {b} {a}      |
+
+| Command       | MV           |
+| ------------- |------------- |
+| Opcode        | CO           |
+| Parameters    | dx0 dy0 [dx1 dy1 .. dxn dyn] |
+| Output        | MV (xo, y0) (x1, y1) [... (xn, yn)]    |
 
 The app also writes all **USER ADDED** encoding/decoding conversions to the file: *ConvertedData.txt*
 
