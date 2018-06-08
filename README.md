@@ -16,9 +16,7 @@ Using the decoding function written for Part 1 submission to decode and describe
 *Note: On your browser, go to http://127.0.0.1:8000/api to access REST API*
 
 ## Task
-This system uses a pen-based model where an imaginary pen can be raised or lowered.
-
-The commands supported in this mini-language are:
+This system uses a pen-based model where an imaginary pen can be raised or lowered. The commands supported in this mini-language are:
 - [x] Clear the drawing and reset all parameters
 - [x] Raise/lower the pen
 - [x] Change the current color
