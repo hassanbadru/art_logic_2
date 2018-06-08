@@ -87,8 +87,19 @@ class ArtLogicApp(TemplateView):
 ```
 
 - ### Template
+#### Using ReactJS as frontend
 I set the template use to load from React's production build folder in *settings.py*
 `'DIRS': [ os.path.join(BASE_DIR, 'frontend/build') ],`
+
+#### Node Dependencies (Package.JSON)
+```
+"react": "^16.3.2",
+"react-dom": "^16.3.2",
+"react-scripts": "1.1.4",
+"react-vis": "^1.9.4" 
+```
+#### One External Library used
+**react-vis:** for creating X-Y plot on canvas
 
 - ### Utility (MyFunction.py)
 
