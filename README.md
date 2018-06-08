@@ -81,23 +81,21 @@ class ArtLogicAPI(generics.ListCreateAPIView):
 class ArtLogicApp(TemplateView):
     template_name = 'index.html'
 ```
+
 - ### Template
 I set the template use to load from React's production build folder in *settings.py*
 `'DIRS': [ os.path.join(BASE_DIR, 'frontend/build') ],`
 
 - ### Utility (MyFunction.py)
-#### Encoding Function:
-```
-def encoder(input_num):
-    ....
-    return output
-```
+
 #### Decoding function:
+Takes in 16-bit hexadecimal
 ```
 def decoder(input_num):
     ....
     return output
 ```
+- returns a decoded decimal within the range of [-8192, 8191]
 
 #### Get function:
 Searches the inputted string for all commands present within, using regular expressions.
@@ -117,11 +115,13 @@ def readInstruction(s1):
 ```
 - returns an array of objects that includes all instruction as either strings or keys for accompanying parameters, sorted in order of appearance
 #### Boundary Fix function:
+Checks if value exceeds boundary, 
 ```
 def def fix_boundary(val):
     ....
     return output
 ```
+- returns value if less or border if more
 
 #### Write function:
 Takes instruction stream from `readInstruction(s1):` and adds pen logic by performing operations from all instructions on their parameters (i.e. clear, change color, draw). For easy conversion into JSON, creates a dictionary for all results, using order number as keys and entire output as values.
@@ -130,32 +130,17 @@ def write_instructions(instruction_stream):
     ....
     return output
 ```
-returns a JSON object that can be understood by Javascript/ES6is and then passed on to the frontend as a variable
+- returns a JSON object that can be understood by Javascript/ES6is and then passed on to the frontend as a variable
 
 
 
 - ### Routing
-Django Project:
-```
-urlpatterns = [
-  url(r'^admin/', admin.site.urls),
-  url(r'^', include('art_logic_app.urls'))
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-```
+
 Django App (art_logic_app):
 ```
     url('api/', views.ArtLogicAPI.as_view() ),
     url(r'^$', views.ArtLogicApp.as_view(), name="art_logic" )
 ```
-
-- ### API / Serialization
-```
-class UserActionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = UserAction
-        fields = ('operation', 'input', 'result')
-```
-
 
 
 ## How the App Works
