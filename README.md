@@ -18,7 +18,6 @@ Using the decoding function written for Part 1 submission to decode and describe
 ## Task
 If the pen is moved while it is down, we draw along the line of motion in the current color. If the pen is moved while it is up, no drawing is done
 
-#### Commands
 The commands supported in this mini-language are:
 - [x] Clear the drawing and reset all parameters
 - [x] Raise/lower the pen
@@ -29,7 +28,32 @@ Commands are represented in the data stream by a single (un-encoded) opcode byte
 
 Any unrecognized commands encountered in an input stream should be ignored.
 
+## Commands
+Here are command formats used
 
+| Command       | CLR          |
+| ------------- |------------- |
+| Opcode        | FO           |
+| Parameters    | (None)       |
+| Output        | CLR;\n       |
+
+| Command       | PEN          |
+| ------------- |------------- |
+| Opcode        | 9O           |
+| Parameters    | 0=up,not 0=down |
+| Output        | PEN UP or PEN DOWN |
+
+| Command       | CO |
+| ------------- |------------- |
+| Opcode        | AO           |
+| Parameters    |  R G B A        |
+| Output        | CO {r} {g} {b} {a}      |
+
+| Command       | MV           |
+| ------------- |------------- |
+| Opcode        | CO           |
+| Parameters    | dx0 dy0 [dx1 dy1 .. dxn dyn] |
+| Output        | MV (xo, y0) (x1, y1) [... (xn, yn)]    |
 ## Folder Structure
 ```
 Hassan_Badru_Part2
@@ -202,36 +226,7 @@ class UserActionSerializer(serializers.ModelSerializer):
 #### IMAGE:
 Background Image:
 * intro-bg.jpg
-- ### Media Files (ConvertedData.txt)
-I set the directory to save ConvertedData.txt in *settings.py* using:
-```
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-```
 
-| Command       | CLR          |
-| ------------- |------------- |
-| Opcode        | FO           |
-| Parameters    | (None)       |
-| Output        | CLR;\n       |
-
-| Command       | PEN          |
-| ------------- |------------- |
-| Opcode        | 9O           |
-| Parameters    | 0=up,not 0=down |
-| Output        | PEN UP or PEN DOWN |
-
-| Command       | CO |
-| ------------- |------------- |
-| Opcode        | AO           |
-| Parameters    |  R G B A        |
-| Output        | CO {r} {g} {b} {a}      |
-
-| Command       | MV           |
-| ------------- |------------- |
-| Opcode        | CO           |
-| Parameters    | dx0 dy0 [dx1 dy1 .. dxn dyn] |
-| Output        | MV (xo, y0) (x1, y1) [... (xn, yn)]    |
 
 The app also writes all **USER ADDED** encoding/decoding conversions to the file: *ConvertedData.txt*
 
