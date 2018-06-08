@@ -17,7 +17,7 @@ from django.core.serializers import serialize
 
 from art_logic_app.models import UserAction
 from art_logic_app.serializers import UserActionSerializer
-from art_logic_app.myfunctions import encoder, decoder, readInstruction
+from art_logic_app.myfunctions import encoder, decoder, readInstruction, write_instructions
 
 
 # Create your views here.
@@ -46,13 +46,14 @@ class ArtLogicApp(TemplateView):
 
 
             instruction_stream = readInstruction(instruction_string)
-            instruction_json = {}
+            # instruction_json = {}
+            instruction_json = write_instructions(instruction_stream)
 
-            count = 0
-            for instruction in instruction_stream:
-                instruction_json[str(count)] =  instruction
-                print(instruction)
-                count += 1
+            # count = 0
+            # for instruction in instruction_stream:
+            #     instruction_json[str(count)] =  instruction
+            #     print(instruction)
+            #     count += 1
 
             # print(instruction_json)
 

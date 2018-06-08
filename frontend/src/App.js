@@ -198,7 +198,7 @@ const ResultDisplay2 = (props) => {
 
     let l = Object.keys(instruction_stream).length
 
-    let x=0, y=0, xx=0, yy=0
+    // let x=0, y=0, xx=0, yy=0
     let pen_down = false;
 
     for (var i =0; i < l; i++){
@@ -215,88 +215,86 @@ const ResultDisplay2 = (props) => {
 
 
       // PEN LOGIC
-      if (instruction_stream[i] === 'PEN UP'){
-        pen_down = false
-        // console.log("PEN:", pen_down)
-      }else if (instruction_stream[i] === 'PEN DOWN'){
-        pen_down = true
-        // console.log("PEN UP:", pen_down)
-      }
+      // if (instruction_stream[i] === 'PEN UP'){
+      //   pen_down = false
+      //   // console.log("PEN:", pen_down)
+      // }else if (instruction_stream[i] === 'PEN DOWN'){
+      //   pen_down = true
+      //   // console.log("PEN UP:", pen_down)
+      // }
 
 
 
       // DRAW LOGIC
-      if (key === 'MV'){
-        if (pen_down){
-          //move (x, y)
-          x += instruction_stream[i][key][0]
-          y += instruction_stream[i][key][1]
-
-
-          // WHEN EXCEEDING BOUNDARY
-
-          //pen up - out of boundary
-
-
-          // leave pen at border if out of bounds
-          if (x > 8191){
-
-            pen_down = false //pen down
-            xx = 8191 //set to boundary (x)
-
-            console.log("x > 8191")
-
-          } else if (x < -8192){
-
-            pen_down = false //pen down
-            xx = -8192 //set to boundary (x)
-            console.log("x < -8192")
-
-          } else {
-
-            pen_down = true //pen up
-            xx = x // last drawn x
-
-            console.log("x normal")
-          }
-
-          if (y > 8191){
-
-            pen_down = false //pen down
-            yy = 8191 //set to boundary (y)
-
-            console.log("y > 8191")
-
-          } else if (y < -8192){
-
-            pen_down = false //pen down
-            yy = -8192 //set to boundary (y)
-            console.log("y < -8192")
-
-          } else {
-
-            pen_down = true //pen up
-            yy = y // last drawn y
-            console.log("y normal")
-
-          }
-
-          instruction_stream[i][key] = [xx, yy]
-
-          // if ((x > 8191 || y > 8191) && (x < -8192 || y < -8192)){
-          //
-          //
-          //
-          // } else {
-          //   //pen down - back in boundary
-          //   pen_down = true
-          //   instruction_stream[i][key] = [x, y] //set to existing (x, y)
-          // }
-
-        }
-            instruction_stream[i][key] = [xx, yy]
-            console.log(instruction_stream[i][key])
-      }
+      // if (key === 'MV'){
+      //   if (pen_down){
+      //     //move (x, y)
+      //     x += instruction_stream[i][key][0]
+      //     y += instruction_stream[i][key][1]
+      //
+      //
+      //     // WHEN EXCEEDING BOUNDARY
+      //
+      //     //pen up - out of boundary
+      //
+      //
+      //     // leave pen at border if out of bounds
+      //     if (x > 8191){
+      //
+      //       pen_down = false //pen down
+      //       xx = 8191 //set to boundary (x)
+      //
+      //       console.log("x > 8191")
+      //
+      //     } else if (x < -8192){
+      //
+      //       pen_down = false //pen down
+      //       xx = -8192 //set to boundary (x)
+      //       console.log("x < -8192")
+      //
+      //     } else {
+      //
+      //       pen_down = true //pen up
+      //       xx = x // last drawn x
+      //
+      //       console.log("x normal")
+      //     }
+      //
+      //     if (y > 8191){
+      //
+      //       pen_down = false //pen down
+      //       yy = 8191 //set to boundary (y)
+      //
+      //       console.log("y > 8191")
+      //
+      //     } else if (y < -8192){
+      //
+      //       pen_down = false //pen down
+      //       yy = -8192 //set to boundary (y)
+      //       console.log("y < -8192")
+      //
+      //     } else {
+      //
+      //       pen_down = true //pen up
+      //       yy = y // last drawn y
+      //       console.log("y normal")
+      //
+      //     }
+      //
+      //     instruction_stream[i][key] = [xx, yy]
+      //
+      //
+      //
+      //   } else if (!(x > 8191 && x < -8192) || !(y > 8191 && y < -8192)) {
+      //     // if pen up but still within boundary
+      //     // xx = x
+      //     // yy = y
+      //     // xx = instruction_stream[i][key][0]
+      //     // yy = instruction_stream[i][key][1]
+      //   }
+      //       instruction_stream[i][key] = [xx, yy]
+      //       console.log(instruction_stream[i][key])
+      // }
 
 
       all_instructions.push(instruction_stream[i])
@@ -405,8 +403,8 @@ const PlotGraph = (props) => {
 
       <LineSeries
         color={props.color}
-        data={(coordinates) ? coordinates : [[0, 1][6, 2][0, 7]]}
-        style={{strokeLinejoin: "round"}}
+        data={(coordinates)? coordinates : [[1, 1],[3, 4],[3, 7]]}
+        style={{line:{stroke: 'white'}, strokeWidth: 5}}
       />
 
       <XAxis />
@@ -415,7 +413,7 @@ const PlotGraph = (props) => {
   </div>
   )
 }
-
+// strokeLinejoin: "round"
 // const divStyle={
 //   overflowY: 'auto',
 //   // border:'1px solid red',

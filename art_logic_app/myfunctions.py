@@ -309,6 +309,139 @@ def readInstruction(s1):
   # print(action_log)
   return action_log
 
+def fix_boundary(val):
+  if val < -8192:
+    return -8192
+  elif val > 8191:
+    return 8191
+  else:
+    return val
+
+def write_instructions(instruction_stream):
+  instruction_json = {}
+
+  pen_down = False
+  pen_up = False
+
+  count = 0
+
+  x = 0
+  y = 0
+
+  x_up = 0
+  y_up = 0
+
+  # iterate through all instructions
+  for instruction in instruction_stream:
+
+    # add clear out instruction
+    if instruction == 'CLR':
+      instruction_json[str(count)] = instruction
+      count +=1
+
+
+  # LOGIC FOR PEN UP/PEN DOWN
+  # add pen up instruction
+    if instruction == 'PEN UP':
+      pen_down = False
+      instruction_json[str(count)] = instruction
+      count +=1
+
+    # add pen down instruction
+    elif instruction == 'PEN DOWN':
+      pen_down = True
+      instruction_json[str(count)] = instruction
+      count +=1
+
+    elif isinstance(instruction, dict):
+      key = list(instruction.keys())[0]
+
+      # add COLOR instruction
+      if key == 'CO':
+        instruction_json[str(count)] = instruction
+        count +=1
+
+      if key == 'MV':
+
+        if pen_down:
+          # new x, y position
+          x += instruction[key][0]
+          y += instruction[key][1]
+
+          # Actual values for x, y after adjusting boundary rules
+          x_temp = fix_boundary(x)
+          y_temp = fix_boundary(y)
+
+
+          # Check if within boundary to add pen down instruction
+          if (x - x_temp == 0 and y - y_temp == 0) and pen_up:
+            instruction_json[str(count)] = {'MV': [fix_boundary(x-instruction[key][0]), fix_boundary(y-instruction[key][1])]}
+            count += 1
+            instruction_json[str(count)] = "PEN DOWN"
+            pen_up = False
+            count += 1
+
+          # add new MV instruction
+          if not pen_up:
+            instruction[key] = [x_temp, y_temp]
+            instruction_json[str(count)] = instruction
+            count +=1
+
+          # else:
+            # find x when y = 8191 || -8192 or x when y = 8191 || -8182
+            # if x - x_temp != 0:
+
+            # find slope
+            # if instruction[key][0] != 0:
+            #   slope = instruction[key][1] / instruction[key][0]
+            # # c = y - mx
+            #   c = y - slope * x
+            #   print(c)
+
+
+
+          # Check if x, y is outside boundary to add pen up instruction
+          if (x - x_temp != 0 or y - y_temp != 0) and not pen_up:
+            instruction_json[str(count)] = "PEN UP"
+            pen_up = True
+            count += 1
+
+
+
+        else:
+
+          #x, y values when PEN UP
+          x_up += instruction[key][0]
+          y_up += instruction[key][1]
+
+          # if x,y - pen up is within boundary
+          if (x_up < 8191 and x_up > -8192) and (y_up < 8191 and y_up > -8192):
+
+            x = x_up
+            y = y_up
+
+          # if x - pen up is within boundary
+          elif x_up > 8191 and x_up < -8192:
+            print("x_up inside", x_up, y_up)
+
+
+          # if y - pen up is within boundary
+          elif y_up > 8191 and y_up < -8192:
+            print("y_up inside", x_up, y_up)
+
+          # if x, y - pen up all outside boundary
+          else:
+            print("none inside")
+
+          # add new MV instruction
+          instruction[key] = [x, y]
+          instruction_json[str(count)] = instruction
+          count +=1
+
+
+
+  return instruction_json
+
 
 # # s2 = 'F0A04000417F4000417FC040004000804001C05F205F20804000'
 #
