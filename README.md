@@ -31,26 +31,30 @@ Any unrecognized commands encountered in an input stream should be ignored.
 ## Commands
 Here are command formats used
 
-| Command       | CLR          |
+| CLEAR       |           |
 | ------------- |------------- |
+| Command       | CLR   
 | Opcode        | FO           |
 | Parameters    | (None)       |
 | Output        | CLR;\n       |
 
-| Command       | PEN          |
+| PEN       |           |
 | ------------- |------------- |
+| Command       | PEN          |
 | Opcode        | 9O           |
 | Parameters    | 0=up,not 0=down |
 | Output        | PEN UP or PEN DOWN |
 
-| Command       | CO |
+| COLOR         |       |
 | ------------- |------------- |
+| Command       | CO |
 | Opcode        | AO           |
 | Parameters    |  R G B A        |
 | Output        | CO {r} {g} {b} {a}      |
 
-| Command       | MV           |
+| MOVE          |            |
 | ------------- |------------- |
+| Command       | MV           |
 | Opcode        | CO           |
 | Parameters    | dx0 dy0 [dx1 dy1 .. dxn dyn] |
 | Output        | MV (xo, y0) (x1, y1) [... (xn, yn)]    |
