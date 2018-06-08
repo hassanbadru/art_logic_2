@@ -106,7 +106,7 @@ def get_instructions(m_string):
     ....
     return output
 ```
-return a stored dictionary of every command within the string, with their respective starting positions as keys
+- return a stored dictionary of every command within the string, with their respective starting positions as keys
 
 #### Read function: 
 Takes in the result from `get_instruction()`, creates an action log of all possible parameters and then decodes them
@@ -115,7 +115,7 @@ def readInstruction(s1):
     ....
     return output
 ```
-returns an array of objects that includes all instruction as either strings or keys for accompanying parameters
+- returns an array of objects that includes all instruction as either strings or keys for accompanying parameters, sorted in order of appearance
 #### Boundary Fix function:
 ```
 def def fix_boundary(val):
@@ -124,12 +124,13 @@ def def fix_boundary(val):
 ```
 
 #### Write function:
+Takes instruction stream from `readInstruction(s1):` and adds pen logic by performing operations from all instructions on their parameters (i.e. clear, change color, draw). For easy conversion into JSON, creates a dictionary for all results, using order number as keys and entire output as values.
 ```
 def write_instructions(instruction_stream):
     ....
     return output
 ```
-
+returns a JSON object that can be understood by Javascript/ES6is and then passed on to the frontend as a variable
 
 
 
