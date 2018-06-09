@@ -260,4 +260,6 @@ Hassan_Badru_Part2
 
 
 ## Extensibility
-- An added feature in the future could be/allow
+- In the future, the graphical UI feature could be upgraded to more advanced SVG-based frameworks to better depict the pen logic which has been represented in the text output.
+    - [] Draw line only when pen is down
+    - [] Differentiate data marks when pen is up (donut) vs when pen is down (solid)
