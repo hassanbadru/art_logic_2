@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './css/App.css';
 
-import {XYPlot, XAxis, YAxis, HorizontalGridLines, VerticalGridLines, LineSeries, LineMarkSeries} from 'react-vis';
+import {XYPlot, XAxis, YAxis, HorizontalGridLines, VerticalGridLines, LineMarkSeries} from 'react-vis';
 
 
 class App extends Component {
