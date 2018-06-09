@@ -183,7 +183,8 @@ Django App (art_logic_app):
   and:
     > **Graphical(additional):** Shows the points drawn  by the commands as pen if forced to stay stay within boundary. However, the pen always draws as it moves along (regardless of pen positions) due to UI design time constraint.
 
-* Error Handling: The program tries hard to translate every piece of information from the string and displays what it understands. If any instruction exists, the app displays it, else uers simply won't receive any output.
+* Error Handling: The program tries hard to translate every piece of information from strings in recieves and displays what it understands. If any instruction exists, the app displays it, else users simply won't receive any output on result display screen. If there is no input, user won't leave input screen. 
+* The app was designed to ignore unrecognized .
 * The App plots and styles the graph once it reads and understands the decoded instruction correctly.
 
 
@@ -262,4 +263,4 @@ Hassan_Badru_Part2
 - In the future, the graphical UI feature could be upgraded to more advanced SVG-based frameworks to better depict the pen logic which has been represented in the text output.
     - Draw line only when pen is down
     - Differentiate data marks when pen is up (donut) vs when pen is down (solid)
-- Generate specific messages for user to learn why any string without output exists outside the scope of this decoding language.
+- Generate specific messages for user to learn why any string without an output only exists outside the scope of this decoding language.
