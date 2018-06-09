@@ -180,7 +180,9 @@ Django App (art_logic_app):
 * Movements are only drawn when the pen is down. The app displays all movement instructions with current positions while following the pen's logic
 * Result are displayed in two forms: 
     > **Textual:** Shows all commands and effects of pen positions on new coordinates in form of an unordered HTML list `<ul>`. User can scroll down to see more of longer results.
-  and:
+  
+  
+ 
     > **Graphical(additional):** Shows the points drawn  by the commands as pen if forced to stay stay within boundary. However, the pen always draws as it moves along (regardless of pen positions) due to UI design time constraint.
 
 * Error Handling: The program tries hard to translate every piece of information from strings in recieves and displays what it understands. If any instruction exists, the app displays it, else users simply won't receive any output on result display screen. If there is no input, user won't leave input screen. 
