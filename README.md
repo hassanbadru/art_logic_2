@@ -183,7 +183,7 @@ Django App (art_logic_app):
   
   
  
-    > **Graphical(additional):** Shows the points drawn  by the commands as pen if forced to stay stay within boundary. However, the pen always draws as it moves along (regardless of pen positions) due to UI design time constraint.
+    > **Graphical(*additional*):** Shows the points drawn  by the commands as pen if forced to stay stay within boundary. However, the pen always draws as it moves along (regardless of pen positions) due to UI design time constraint.
 
 * Error Handling: The program tries hard to translate every piece of information from strings in recieves and displays what it understands. If any instruction exists, the app displays it, else users simply won't receive any output on result display screen. If there is no input, user won't leave input screen. 
 * The app was designed to ignore unrecognized .
