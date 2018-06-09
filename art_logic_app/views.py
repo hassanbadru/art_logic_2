@@ -54,7 +54,7 @@ class ArtLogicApp(TemplateView):
 
             # convert to json
             instruction_json = json.dumps(instruction_json)
-            print(instruction_json)
+            # print(instruction_json)
 
             context['instruction_stream'] = instruction_json
             # print(instruction_stream)

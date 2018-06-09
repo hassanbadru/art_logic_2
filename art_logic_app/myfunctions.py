@@ -318,6 +318,8 @@ def fix_boundary(val):
   else:
     return val
 
+
+
 def write_instructions(instruction_stream):
   instruction_json = {}
 
@@ -376,38 +378,63 @@ def write_instructions(instruction_stream):
 
           # Check if within boundary to add pen down instruction
           if (x - x_temp == 0 and y - y_temp == 0) and pen_up:
-            instruction_json[str(count)] = {'MV': [fix_boundary(x-instruction[key][0]), fix_boundary(y-instruction[key][1])]}
+            # instruction_json[str(count)] = {'MV': [fix_boundary(x-instruction[key][0]), fix_boundary(y-instruction[key][1])]}
+
+            if instruction[key][0] != 0:
+              slope = instruction[key][1] / float(instruction[key][0])
+              # print(slope)
+            else:
+              slope = y
+
+            # print("slope2: ", slope)
+            yBorder = slope * (fix_boundary(x_up) - x) + y
+            instruction_json[str(count)] = {'MV': [fix_boundary(x-instruction[key][0]), math.ceil(yBorder)]}
             count += 1
+            print("y2 when x > 8191: ", yBorder)
+            print('actual2: ', x, y, 'adj', x_temp, y_temp, slope, "\n\n")
+
+
             instruction_json[str(count)] = "PEN DOWN"
             pen_up = False
             count += 1
 
+          # if (x - x_temp != 0 or y - y_temp != 0) and pen_up:
+            # instruction_json[str(count)] = "PEN UP"
+            # pen_up = True
+            # print(instruction, x, y, x_temp, y_temp)
+            # count += 1
+
           # add new MV instruction
           if not pen_up:
-            instruction[key] = [x_temp, y_temp]
-            instruction_json[str(count)] = instruction
-            count +=1
-
-          # else:
-            # find x when y = 8191 || -8192 or x when y = 8191 || -8182
-            # if x - x_temp != 0:
-
-            # find slope
-            # if instruction[key][0] != 0:
-            #   slope = instruction[key][1] / instruction[key][0]
-            # # c = y - mx
-            #   c = y - slope * x
-            #   print(c)
 
 
+            # Check if x, y is outside boundary to add pen up instruction
+            if (x - x_temp != 0 or y - y_temp != 0):
 
-          # Check if x, y is outside boundary to add pen up instruction
-          if (x - x_temp != 0 or y - y_temp != 0) and not pen_up:
-            instruction_json[str(count)] = "PEN UP"
-            pen_up = True
-            count += 1
+              if instruction[key][0] != 0:
+                slope = instruction[key][1] / float(instruction[key][0])
+              else:
+                slope = y
 
+              # print("slope1: ", slope)
+              yBorder = slope * (8191 - x) + y
+              instruction_json[str(count)] = {'MV': [8191, math.ceil(yBorder)]}
+              count += 1
+              # print("y1 when x > 8191: ", yBorder)
+              # print('actual 1: ', x, y, 'adj', x_temp, y_temp, slope, '\n\n')
 
+              instruction_json[str(count)] = "PEN UP"
+              pen_up = True
+              x_up = x
+              y_up = y
+              count += 1
+
+            else:
+              instruction[key] = [x_temp, y_temp]
+              instruction_json[str(count)] = instruction
+              count +=1
+
+          # print(x, y)
 
         else:
 
@@ -423,26 +450,30 @@ def write_instructions(instruction_stream):
 
           # if x - pen up is within boundary
           elif x_up > 8191 and x_up < -8192:
-            print("x_up inside", x_up, y_up)
+              pass
+              # print("x_up inside", x_up, y_up)
 
 
           # if y - pen up is within boundary
           elif y_up > 8191 and y_up < -8192:
-            print("y_up inside", x_up, y_up)
+              pass
+              # print("y_up inside", x_up, y_up)
 
           # if x, y - pen up all outside boundary
           else:
-            print("none inside")
+              pass
+              # print("none inside")
 
           # add new MV instruction
           instruction[key] = [x, y]
           instruction_json[str(count)] = instruction
           count +=1
 
+          # print(x, y, x_up, y_up)
+
 
 
   return instruction_json
-
 
 # # s2 = 'F0A04000417F4000417FC040004000804001C05F205F20804000'
 #
