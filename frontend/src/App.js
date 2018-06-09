@@ -187,45 +187,80 @@ const UserInput2 = (props) => {
 }
 
 
-const ResultDisplay2 = (props) => {
+class ResultDisplay2 extends Component {
 
-  let instruction_stream = props.instruction_stream
-  let all_instructions = []
-  let color
 
-  // console.log(instruction_stream)
-  if (instruction_stream){
+  state = {markcolor: "white", all_instructions: [], coordinates:[], color: "black"}
 
-    let l = Object.keys(instruction_stream).length
+  componentWillMount(){
+    let instruction_stream = this.props.instruction_stream
+    let all_instructions = []
+    let color
 
-    // let x=0, y=0, xx=0, yy=0
-    let pen_down = false;
+    // console.log(instruction_stream)
+    if (instruction_stream){
 
-    for (var i =0; i < l; i++){
-      let key = Object.keys(instruction_stream[i])[0]
+      let l = Object.keys(instruction_stream).length
 
-      if (key === 'CLR'){
-        all_instructions = []
+      // let x=0, y=0, xx=0, yy=0
+      let pen_down = false;
+
+      for (var i =0; i < l; i++){
+        let key = Object.keys(instruction_stream[i])[0]
+
+        if (key === 'CLR'){
+          all_instructions = []
+        }
+
+        // SELECT COLOR
+        if (key === 'CO'){
+          let color_array = instruction_stream[i][key]
+          color = "rgba(" + color_array[0] + ", " + color_array[1] + ", " + color_array[2] + ", " + color_array[3] + ")"
+          // console.log(color)
+          this.setState({color})
+        }
+
+        if (instruction_stream[i] === 'PEN DOWN'){
+          this.setState({markcolor: color})
+        } else if (instruction_stream[i] === 'PEN UP'){
+          this.setState({markcolor: "white"})
+        }
+
+
+        all_instructions.push(instruction_stream[i])
       }
 
-      // SELECT COLOR
-      if (key === 'CO'){
-        let color_array = instruction_stream[i][key]
-        color = "rgba(" + color_array[0] + ", " + color_array[1] + ", " + color_array[2] + ", " + color_array[3] + ")"
-        // console.log(color)
-      }
 
 
-      all_instructions.push(instruction_stream[i])
+      let coordinates = [];
+
+      (all_instructions) ?
+        all_instructions.map((instruction, i) => {
+          if (Object.keys(instruction)[0] === 'MV'){
+            // console.log(instruction['MV'])
+            coordinates.push(instruction['MV'])
+          }
+          // coordinates.push(instruction['MV'])
+
+        }) : null
+
+        this.setState({all_instructions, coordinates})
+
+
+
+      // console.log(all_instructions)
+
     }
-
-
-
-    // console.log(all_instructions)
-
   }
 
 
+
+
+
+
+render(){
+
+  let { all_instructions, color, markcolor, coordinates} = this.state
 
   return (
     <div className="col-md-12" style={{backgroundColor: '#eee'}}>
@@ -249,7 +284,7 @@ const ResultDisplay2 = (props) => {
 
           <div style={{overflowY: 'auto', height: 300, width: '100%'}}>
             <ul>
-              { (instruction_stream) ?
+              { (all_instructions) ?
                 all_instructions.map((instruction, i) => {
                   let key = Object.keys(instruction)[0]
                   return (
@@ -266,13 +301,14 @@ const ResultDisplay2 = (props) => {
 
         <div className="col-md-6" style={{backgroundColor: '#fff', height: 350}}>
           <p style={{color: '#000'}}>GRAPH</p>
-          <PlotGraph color={(color) ? color : "black"} all_instructions={all_instructions} />
+          <PlotGraph color={(color) ? color : "black"} all_instructions={all_instructions} markcolor={markcolor} coordinates={coordinates} />
         </div>
 
       </div>
 
     </div>
   )
+}
 }
 
 
@@ -296,25 +332,13 @@ class Part2 extends Component {
 }
 
 const PlotGraph = (props) => {
-  let coordinates = [];
 
-  (props.all_instructions) ?
-    props.all_instructions.map((instruction, i) => {
-      if (Object.keys(instruction)[0] === 'MV'){
-        // console.log(instruction['MV'])
-        coordinates.push(instruction['MV'])
-      }
-      // coordinates.push(instruction['MV'])
-
-    }) : null
-
-    console.log(coordinates)
+  let coordinates = props.coordinates
+    // console.log(coordinates)
 
 
   return (
   <div style={{marginHorizontal: 20, backgroundColor: '#fff', width: '100%'}}>
-
-
 
     <XYPlot
       width={400}
@@ -326,20 +350,34 @@ const PlotGraph = (props) => {
 
       <VerticalGridLines />
       <HorizontalGridLines />
+      {
+        // coordinates.map((coordinate, i) => {
+        //   return (
+        //     <LineMarkSeries
+        //       key ={i}
+        //       color={props.color}
+        //       data={(coordinate)? coordinate : [[1, 1]]}
+        //       style={{strokeWidth: 5}}
+        //
+        //     />
+        //   )
+        // })
+      }
 
       <LineMarkSeries
         color={props.color}
         data={(coordinates)? coordinates : [[1, 1],[3, 4],[3, 7]]}
         style={{strokeWidth: 5}}
+
       />
 
 
     </XYPlot>
   </div>
-  )
-}
-// strokeLinejoin: "round"
-// const divStyle={
+          )
+          }
+          // strokeLinejoin: "round"
+          // const divStyle={
 //   overflowY: 'auto',
 //   // border:'1px solid red',
 //   width:'100%',

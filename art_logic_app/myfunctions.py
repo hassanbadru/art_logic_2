@@ -390,8 +390,8 @@ def write_instructions(instruction_stream):
             yBorder = slope * (fix_boundary(x_up) - x) + y
             instruction_json[str(count)] = {'MV': [fix_boundary(x-instruction[key][0]), math.ceil(yBorder)]}
             count += 1
-            print("y2 when x > 8191: ", yBorder)
-            print('actual2: ', x, y, 'adj', x_temp, y_temp, slope, "\n\n")
+            # print("y2 when x > 8191: ", yBorder)
+            # print('actual2: ', x, y, 'adj', x_temp, y_temp, slope, "\n\n")
 
 
             instruction_json[str(count)] = "PEN DOWN"
@@ -417,11 +417,19 @@ def write_instructions(instruction_stream):
                 slope = y
 
               # print("slope1: ", slope)
-              yBorder = slope * (8191 - x) + y
-              instruction_json[str(count)] = {'MV': [8191, math.ceil(yBorder)]}
-              count += 1
-              # print("y1 when x > 8191: ", yBorder)
-              # print('actual 1: ', x, y, 'adj', x_temp, y_temp, slope, '\n\n')
+              if x - x_temp != 0:
+                yBorder = slope * (x_temp - x) + y
+                instruction_json[str(count)] = {'MV': [x_temp, math.ceil(yBorder)]}
+                count += 1
+
+              elif y - y_temp != 0:
+                xBorder = ((y_temp - y)/float(slope)) + x
+                instruction_json[str(count)] = {'MV': [math.ceil(xBorder), y_temp]}
+                count += 1
+
+              elif x - x_temp != 0 and y - y_temp != 0:
+                instruction_json[str(count)] = {'MV': [x_temp, y_temp]}
+                count += 1
 
               instruction_json[str(count)] = "PEN UP"
               pen_up = True
