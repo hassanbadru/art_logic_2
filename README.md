@@ -1,11 +1,12 @@
 
-# Encoder/Decoder - Art+Logic Exercise
+# Decode Vector Instruction Strings - Art+Logic Exercise
 
 ## Description
-This is a single page web application that allows users to encode and decode data
+Using the decoding function written for Part 1 submission to decode and describe a set of simple commands to build a vector-based drawing system.
+
 
 ## Set Up / Running App
-- Download & unpack Hassan_Badru_Part1.zip file
+- Download & unpack Hassan_Badru_Part2.zip file
 - (*Recommended*) Install & run a Virtual Environment (e.g. `source Art_Logic_Env/bin/activate `)
 - Assuming you already have *python* and *pip*, install requirements using `​ pip install -r requirements.txt` within command prompt or terminal *(if not, check out [How to install python & pip ](https://pip.pypa.io/en/stable/installing/))*
 - Assuming you already have *Node* or *NPM*, inside the **frontend** folder, install node_modules (dependencies) using `npm install`  *(if not, check out [How to install Node ](https://nodejs.org/en/download/package-manager/))*
@@ -14,27 +15,172 @@ This is a single page web application that allows users to encode and decode dat
 
 *Note: On your browser, go to http://127.0.0.1:8000/api to access REST API*
 
-## Exercise Requirements
-For this task, you need to write a small program including a pair of functions that can
-- [x] Convert an integer into a special text encoding and then
-- [x] Convert the encoded value back into the original integer.
-Assuming that your solution works correctly and cleanly enough to move forward in this process, these
-functions will need to be used in your part 2 submission.
-#### The Encoding Function
-My encoding function accepts a signed integer in the 14-bit range *[-8192..+8191]* and returns a 4 character hexadecimal
-string.
-The encoding process is as follows:
-1. Added 8192 to the raw value, so its range is translated to *[0..16383]*
-2. Packed that value into two bytes such that the most significant bit of each is cleared
-3. Formatted the two bytes as a single 4-character hexadecimal string and returned it.
+## Task
+This system uses a pen-based model where an imaginary pen can be raised or lowered. The commands supported in this mini-language are:
+- [x] Clear the drawing and reset all parameters
+- [x] Raise/lower the pen
+- [x] Change the current color
+- [x] Move the pen
 
-#### The Decoding Function
-My decoding function accepts two bytes on input, both in the range *[0x00..0x7F]* and recombines
-them to return the corresponding integer between *[-8192..+8191]*
+Commands are represented in the data stream by a single (un-encoded) opcode byte that can be identified by always having its most significant bit set, followed by zero or more bytes containing encoded data values. 
+
+Any unrecognized commands encountered in an input stream should be ignored.
+
+## Commands
+Here are command formats used
+
+| CLEAR       |           |
+| ------------- |------------- |
+| Command       | CLR   
+| Opcode        | FO           |
+| Parameters    | (None)       |
+| Output        | CLR;\n       |
+
+| PEN       |           |
+| ------------- |------------- |
+| Command       | PEN          |
+| Opcode        | 9O           |
+| Parameters    | 0=up,not 0=down |
+| Output        | PEN UP or PEN DOWN |
+
+| COLOR         |       |
+| ------------- |------------- |
+| Command       | CO |
+| Opcode        | AO           |
+| Parameters    |  R G B A        |
+| Output        | CO {r} {g} {b} {a}      |
+
+| MOVE          |            |
+| ------------- |------------- |
+| Command       | MV           |
+| Opcode        | CO           |
+| Parameters    | dx0 dy0 [dx1 dy1 .. dxn dyn] |
+| Output        | MV (xo, y0) (x1, y1) [... (xn, yn)]    |
+
+## Technology Stack Used
+* ##### HTML5 / CSS (View Template)
+* ##### REACT JS (Frontend)
+* ##### Django / Python (Backend)
+* ##### PostgreSQL (Database)
+* ##### Django REST Framework (API)
+* ##### Node / NPM (Production Build)
+
+## Structure
+- ### Model
+```
+class UserAction(models.Model):
+    operation = models.CharField(max_length=100, default='encoding')
+    input = models.CharField(max_length=100, default='8191')
+    result = models.CharField(max_length=100, default='')
+```
+- ### View
+```
+class ArtLogicAPI(generics.ListCreateAPIView):
+    queryset = UserAction.objects.all()
+    serializer_class = UserActionSerializer
+
+
+class ArtLogicApp(TemplateView):
+    template_name = 'index.html'
+```
+
+- ### Template
+#### Using ReactJS as frontend
+I set the template use to load from React's production build folder in *settings.py*
+`'DIRS': [ os.path.join(BASE_DIR, 'frontend/build') ],`
+
+#### Node Dependencies (Package.JSON)
+```
+"react": "^16.3.2",
+"react-dom": "^16.3.2",
+"react-scripts": "1.1.4",
+"react-vis": "^1.9.4" 
+```
+**One External Library used (react-vis):** For creating X-Y plot of coordinates on canvas
+
+- ### Utility (MyFunction.py)
+
+#### Decoding function:
+Takes in 16-bit hexadecimal
+```
+def decoder(input_num):
+    ....
+    return output
+```
+- returns a decoded decimal within the range of [-8192, 8191]
+
+#### Get function:
+Searches the inputted string for all commands present within, using regular expressions.
+```
+def get_instructions(m_string):
+    ....
+    return output
+```
+- return a stored dictionary of every command within the string, with their respective starting positions as keys
+
+#### Read function: 
+Takes in the result from `get_instruction()`, creates an action log of all possible parameters and then decodes them
+```
+def readInstruction(s1):
+    ....
+    return output
+```
+- returns an array of objects that includes all instruction as either strings or keys for accompanying parameters, sorted in order of appearance
+#### Boundary Fix function:
+Checks if value exceeds boundary, 
+```
+def def fix_boundary(val):
+    ....
+    return output
+```
+- returns value if less or border if more
+
+#### Write function:
+Takes instruction stream from `readInstruction(s1):` and adds pen logic by performing operations from all instructions on their parameters (i.e. clear, change color, draw). For easy conversion into JSON, creates a dictionary for all results, using order number as keys and entire output as values.
+```
+def write_instructions(instruction_stream):
+    ....
+    return output
+```
+- returns a JSON object that can be understood by Javascript/ES6is and then passed on to the frontend as a variable
+
+
+
+- ### Routing
+
+Django App (art_logic_app):
+```
+    url('api/', views.ArtLogicAPI.as_view() ),
+    url(r'^$', views.ArtLogicApp.as_view(), name="art_logic" )
+```
+
+
+## How the App Works
+### REACT Single Page
+
+#### Input Instruction Screen:
+![alt text](https://docs.google.com/uc?id=1RM-ZU_RQ4dWYCEm7WO6Arz656FEgvV7k "screenshot1")
+
+#### Decoded Instruction Screen & Graph:
+![alt text](https://docs.google.com/uc?id=1CTK3JtUuEySV4SEQsiZ5M_wGp1mWjdmP "screenshot2")
+
+## Features
+* User can input a un-encoded string that contains the instructions they want to execute with hexadecimal parameters
+* The app takes in the string and computes result if valid
+* If the pen is moved while it is down, we draw along the line of motion in the current color. 
+* If the pen is moved while it is up, no drawing is done
+* Result are displayed in two forms: 
+    > **Textual:** Shows all commands and effects on new positions in text form
+    
+    > **Graphical:** Shows the points drawn by the commands based on positions
+
+* Error Handling: Users get error messages if the app reads incorrect parameters or doesn't understand any information from string
+* If no errors, the results of the decoded instruction are displayed and plotted.
+
 
 ## Folder Structure
 ```
-Hassan_Badru_Part1
+Hassan_Badru_Part2
     ├── README.md
     ├── art_logic
     │   ├── __init__.py
@@ -100,125 +246,6 @@ Hassan_Badru_Part1
     └── media
         └── ConvertedData.txt
 ```
-## Technology Stack Used
-* ##### HTML5 / CSS (View Template)
-* ##### REACT JS (Frontend)
-* ##### Django / Python (Backend)
-* ##### PostgreSQL (Database)
-* ##### Django REST Framework (API)
-* ##### Node / NPM (Production Build)
-
-## Structure
-- ### Model
-```
-class UserAction(models.Model):
-    operation = models.CharField(max_length=100, default='encoding')
-    input = models.CharField(max_length=100, default='8191')
-    result = models.CharField(max_length=100, default='')
-```
-- ### View
-```
-class ArtLogicAPI(generics.ListCreateAPIView):
-    queryset = UserAction.objects.all()
-    serializer_class = UserActionSerializer
-
-
-class ArtLogicApp(TemplateView):
-    template_name = 'index.html'
-```
-- ### Template
-I set the template use to load from React's production build folder in *settings.py*
-`'DIRS': [ os.path.join(BASE_DIR, 'frontend/build') ],`
-
-- ### Utility (MyFunction.py)
-#### Encoding Function:
-```
-def encoder(input_num):
-    ....
-    return output
-```
-#### Decoding function:
-```
-def decoder(input_num):
-    ....
-    return output
-```
-- ### Routing
-Django Project:
-```
-urlpatterns = [
-  url(r'^admin/', admin.site.urls),
-  url(r'^', include('art_logic_app.urls'))
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-```
-Django App (art_logic_app):
-```
-    url('api/', views.ArtLogicAPI.as_view() ),
-    url(r'^$', views.ArtLogicApp.as_view(), name="art_logic" )
-```
-
-- ### API / Serialization
-```
-class UserActionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = UserAction
-        fields = ('operation', 'input', 'result')
-```
-- ### Fixtures
-Preloaded with data to be encoded/decoded and written into convertedData.txt
-#### File:
-```
-art_logic_app.json
-```
-Preloaded data with output written into convertedData.txt
-- ### Static Files
-#### CSS:
-* App.css
-* index.css
-#### IMAGE:
-Background Image:
-* intro-bg.jpg
-- ### Media Files (ConvertedData.txt)
-I set the directory to save ConvertedData.txt in *settings.py* using:
-```
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-```
-
-| To Encode     | After Encode |
-| ------------- |------------- |
-| 6111          | 4463         |
-| 340           | 4254         |
-| -2628         | 2B3C         |
-| -255          | 3E01         |
-| 7550          | 7A7E         |
-
-| To Decode     | After Decode |
-| ------------- |------------- |
-| 0A0A          |  -6902       |
-| 0029          |  -8151       |
-| 3F0F          |  -113        |
-| 4400          |  512         |
-| 5E7F          |  3967        |
-
-The app also writes all **USER ADDED** encoding/decoding conversions to the file: *ConvertedData.txt*
-
-## How the App Works
-### REACT Single Page
-![alt text](https://docs.google.com/uc?id=1MPyshrH0s3bdYfZQ3i13XqrUvCFqVQyd "screenshot")
-## Features
-* User can select what kind of operation they want to perform
-* After selecting operation, user can input values they want to encode/decode
-* The app checks if user inputted a correctly formatted (valid) values i.e.
-    > 14-bit signed integer (when encoding)
-
-    > 16-bit hexadecimal decimal value for decoding
-* Error Handling: Users get error messages if invalid values were inputted
-* If no errors, the result of the encoding or decoding operation is outputted & displays.
-* The app reads stored data (for encoding/decoding) in database and then uses the data object attributes to compute results
-* Allows user to download convertedData.txt file containing encoding/decoding data of preloaded values
-* The app keeps a record of every valid operation performed by the user and serializes it for the API
 
 ## Extensibility
-- An added feature in the future could allow the userto toggle between user text input or file input
-![alt text](https://docs.google.com/uc?id=1KpToCfgzJh__eUMxtZGlPydJgs9XojC8 "screenshot_2")
+- An added feature in the future could be/allow
