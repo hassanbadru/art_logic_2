@@ -177,11 +177,10 @@ Django App (art_logic_app):
 ## Features
 * User can input a un-encoded string that contains the instructions they want to execute with hexadecimal parameters
 * The app takes in the string and computes result if valid
-* If the pen is moved while it is down, we draw along the line of motion in the current color. 
-* If the pen is moved while it is up, no drawing is done
+* Movements are only drawn when the pen is down. The app displays all movement instructions with current positions while following the pen's logic
 * Result are displayed in two forms: 
     > **Textual:** Shows all commands and effects of pen positions on new coordinates in form of an unordered HTML list `<ul>`. User can scroll down to see more of longer results.
-* and:
+  and:
     > **Graphical(additional):** Shows the points drawn  by the commands as pen if forced to stay stay within boundary. However, the pen always draws as it moves along (regardless of pen positions) due to UI design time constraint.
 
 * Error Handling: The program tries hard to translate every piece of information from the string and displays what it understands. If any instruction exists, the app displays it, else uers simply won't receive any output.
