@@ -204,7 +204,9 @@ const ResultDisplay2 = (props) => {
     for (var i =0; i < l; i++){
       let key = Object.keys(instruction_stream[i])[0]
 
-
+      if (key === 'CLR'){
+        all_instructions = []
+      }
 
       // SELECT COLOR
       if (key === 'CO'){
