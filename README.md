@@ -1,5 +1,5 @@
 
-# Decode Vector Instruction Strings - Art+Logic Exercise
+# Decode Vector Instruction Strings - Art+Logic (Exercise 2)
 
 ## Description
 Using the decoding function written for Part 1 submission to decode and describe a set of simple commands to build a vector-based drawing system.
