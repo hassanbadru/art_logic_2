@@ -259,7 +259,8 @@ Hassan_Badru_Part2
     └── media
         └── ConvertedData.txt
 ```
-
+## Scalability
+- I built this app in a way that allows me or any developer scale and integration past implementations with any possible future solutions.
 
 ## Extensibility
 - In the future, the graphical UI feature could be upgraded to more advanced SVG-based frameworks to better depict the pen logic which has been represented in the text output.
