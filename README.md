@@ -13,7 +13,6 @@ Using the decoding function written for Part 1 submission to decode and describe
 - To start server, run the command `python manage.py runserver`
 - On your browser, go to http://127.0.0.1:8000/ or local server address provided within terminal
 
-*Note: On your browser, go to http://127.0.0.1:8000/api to access REST API*
 
 ## Task
 This system uses a pen-based model where an imaginary pen can be raised or lowered. The commands supported in this mini-language are:
@@ -56,6 +55,11 @@ Here are command formats used
 | Opcode        | CO           |
 | Parameters    | dx0 dy0 [dx1 dy1 .. dxn dyn] |
 | Output        | MV (xo, y0) (x1, y1) [... (xn, yn)]    |
+
+## Example
+### Blue Square:
+
+![alt text](https://docs.google.com/uc?id=1ghRzJ3NsjsXF_cUBKbyVTarh9bBOBglK "screenshot0")
 
 ## Technology Stack Used
 * ##### HTML5 / CSS (View Template)
