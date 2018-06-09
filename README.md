@@ -56,10 +56,14 @@ Here are command formats used
 | Parameters    | dx0 dy0 [dx1 dy1 .. dxn dyn] |
 | Output        | MV (xo, y0) (x1, y1) [... (xn, yn)]    |
 
+
+
 ## Example
 ### Blue Square:
 
 ![alt text](https://docs.google.com/uc?id=1ghRzJ3NsjsXF_cUBKbyVTarh9bBOBglK "screenshot0")
+
+
 
 ## Technology Stack Used
 * ##### HTML5 / CSS (View Template)
@@ -68,6 +72,8 @@ Here are command formats used
 * ##### PostgreSQL (Database)
 * ##### Django REST Framework (API)
 * ##### Node / NPM (Production Build)
+
+
 
 ## Structure
 - ### Model
@@ -182,6 +188,7 @@ Django App (art_logic_app):
 * If no errors, the results of the decoded instruction are displayed and plotted.
 
 
+
 ## Folder Structure
 ```
 Hassan_Badru_Part2
@@ -250,6 +257,7 @@ Hassan_Badru_Part2
     └── media
         └── ConvertedData.txt
 ```
+
 
 ## Extensibility
 - An added feature in the future could be/allow
