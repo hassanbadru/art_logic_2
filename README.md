@@ -146,7 +146,7 @@ def def fix_boundary(val):
 - returns value if less or border if more
 
 #### Write function:
-Takes instruction stream from `readInstruction(s1):` and adds pen logic by performing operations from all instructions on their parameters (i.e. clear, change color, draw). For easy conversion into JSON, creates a dictionary for all results, using order number as keys and entire output as values.
+Takes instruction stream from `readInstruction()` and adds pen logic by performing operations from all instructions on their parameters (i.e. clear, change color, draw). For easy conversion into JSON, creates a dictionary for all results, using order number as keys and entire output as values. The function is able to compute right boundary coordinates for pen when either x and/or y are outside or returning into boundary: [-8192, 8191].
 ```
 def write_instructions(instruction_stream):
     ....
